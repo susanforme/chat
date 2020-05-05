@@ -24,9 +24,4 @@ npm run build
 #Synchronize the current branch with master
 git rebase master
 
-# push your code to master
-
-# origin is your remote repository name, press git remote -v,check your repository name
-
-git push origin master
 ```
