@@ -1,6 +1,5 @@
-import http from 'http';
-http
-  .createServer((req, res) => {
-    res.end('hello world');
-  })
-  .listen(5050);
+import express from 'express';
+const app = express();
+app.get('/', (req, res) => {
+  res.send('hello world');
+});
