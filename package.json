@@ -1,0 +1,14 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "a chat application",
+  "main": "app.ts",
+  "author": "<rzc307853639@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^13.13.4",
+    "eslint": "^6.8.0",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
+  }
+}

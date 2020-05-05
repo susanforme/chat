@@ -1,0 +1,36 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\30785\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js init
+
+PATH: 
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Python38-32\Scripts\;C:\Program Files (x86)\Python38-32\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;D:\phpstudy_pro\Extensions\php\php7.3.4nts;C:\Program Files\nodejs\;C:\Program Files\PuTTY\;C:\Program Files (x86)\PuTTY\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\30785\scoop\shims;C:\Users\30785\AppData\Local\Microsoft\WindowsApps;C:\Users\30785\AppData\Roaming\npm;C:\Program Files\MongoDB\Server\4.2\bin;C:\Users\30785\AppData\Local\Programs\Microsoft VS Code;C:\Users\30785\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\30785\AppData\Local\Android\Sdk\platform-tools;C:\Users\30785\AppData\Local\Android\Sdk\emulator;C:\Users\30785\AppData\Local\Android\Sdk\tools;C:\Users\30785\AppData\Local\Android\Sdk\tools\bin;C:\Program Files\OpenSSL-Win64\bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.14.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (C:\Users\30785\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:137008:13)
+      at Interface.emit (events.js:223:5)
+      at Interface._ttyWrite (readline.js:885:16)
+      at ReadStream.onkeypress (readline.js:191:10)
+      at ReadStream.emit (events.js:223:5)
+      at emitKeys (internal/readline/utils.js:433:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1151:36)
+      at ReadStream.emit (events.js:223:5)
+      at addChunk (_stream_readable.js:309:12)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
