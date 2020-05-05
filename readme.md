@@ -24,4 +24,7 @@ npm run build
 #Synchronize the current branch with master
 git rebase master
 
+# push your code to master
+
+git push origin master
 ```
