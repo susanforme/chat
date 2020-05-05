@@ -5,10 +5,17 @@
   "main": "app.ts",
   "author": "<rzc307853639@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "cross-env nodemon --watch 'src/' -e ts --exec 'ts-node' ./src/app.ts",
+    "build": "tsc -w"
+  },
   "devDependencies": {
     "@types/node": "^13.13.4",
+    "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
+    "nodemon": "^2.0.3",
     "ts-node": "^8.10.1",
+    "tsc": "^1.20150623.0",
     "typescript": "^3.8.3"
   }
 }
