@@ -18,10 +18,12 @@ npm run build
 
 ## sync git
 
-```
+```shell
+# enter in your branch,then press
 
-enter in your branch,then press
-
+#Synchronize the current branch with master
 git rebase master
 
+#Push the current branch to master
+git merge master
 ```
