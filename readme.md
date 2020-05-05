@@ -15,3 +15,13 @@ yarn build
 npm run build
 
 ```
+
+## sync git
+
+```
+
+enter in your branch,then press
+
+git rebase master
+
+```
