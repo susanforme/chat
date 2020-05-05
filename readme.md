@@ -24,6 +24,4 @@ npm run build
 #Synchronize the current branch with master
 git rebase master
 
-#Push the current branch to master
-git merge master
 ```
