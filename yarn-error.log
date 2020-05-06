@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\30785\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add node-ccap
+  C:\Program Files\nodejs\node.exe C:\Users\30785\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add -D @types/captcha
 
 PATH: 
   C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Python38-32\Scripts\;C:\Program Files (x86)\Python38-32\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;D:\phpstudy_pro\Extensions\php\php7.3.4nts;C:\Program Files\nodejs\;C:\Program Files\PuTTY\;C:\Program Files (x86)\PuTTY\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\30785\scoop\shims;C:\Users\30785\AppData\Local\Microsoft\WindowsApps;C:\Users\30785\AppData\Roaming\npm;C:\Program Files\MongoDB\Server\4.2\bin;C:\Users\30785\AppData\Local\Programs\Microsoft VS Code;C:\Users\30785\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\30785\AppData\Local\Android\Sdk\platform-tools;C:\Users\30785\AppData\Local\Android\Sdk\emulator;C:\Users\30785\AppData\Local\Android\Sdk\tools;C:\Users\30785\AppData\Local\Android\Sdk\tools\bin;C:\Program Files\OpenSSL-Win64\bin
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/node-ccap: Not found
+  Error: https://registry.npm.taobao.org/@types%2fcaptcha: Not found
       at Request.params.callback [as _callback] (C:\Users\30785\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66987:18)
       at Request.self.callback (C:\Users\30785\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140748:22)
       at Request.emit (events.js:223:5)
