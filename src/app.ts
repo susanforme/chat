@@ -3,9 +3,7 @@ import router from './routes';
 import http from 'http';
 import socket from 'socket.io';
 import bodyPareser from 'body-parser';
-//登录鉴权
 import session from 'express-session';
-//持久化存储session
 import mongo from 'connect-mongo';
 
 const app = express();
