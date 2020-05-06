@@ -12,7 +12,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socket(server);
 const MongoStore = mongo(session);
-const port = 5050;
+const port = 5000;
 
 io.on('connection', (socket) => {
   socket.on('chat', (msg: any) => {
