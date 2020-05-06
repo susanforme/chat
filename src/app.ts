@@ -10,7 +10,6 @@ app.use(router);
 
 io.on('connection', (socket) => {
   socket.on('chat', (msg: any) => {
-    console.log(msg);
     io.emit('back', msg);
   });
   socket.on('disconnect', () => {
