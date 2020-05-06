@@ -6,6 +6,7 @@ import bodyPareser from 'body-parser';
 import session from 'express-session';
 import mongo from 'connect-mongo';
 import swig from 'swig';
+import path from 'path';
 
 const app = express();
 const server = http.createServer(app);
@@ -45,7 +46,7 @@ app.use(
 );
 
 app.engine('html', swig.renderFile);
-app.set('views', './views');
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 swig.setDefaults({ cache: false });
 //路由中间件写最后
