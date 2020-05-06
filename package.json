@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env nodemon --watch 'src/' -e ts --exec 'ts-node' ./src/app.ts",
-    "build": "tsc -w"
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/connect-mongo": "^3.1.3",
