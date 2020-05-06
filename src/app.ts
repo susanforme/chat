@@ -49,5 +49,6 @@ app.engine('html', swig.renderFile);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 swig.setDefaults({ cache: false });
+app.use('/public', express.static(__dirname + '/public'));
 //路由中间件写最后
 app.use(router);
