@@ -7,6 +7,7 @@ import session from 'express-session';
 import mongo from 'connect-mongo';
 import swig from 'swig';
 import path from 'path';
+import chat from './chat';
 
 const app = express();
 const server = http.createServer(app);
@@ -14,14 +15,9 @@ const io = socket(server);
 const MongoStore = mongo(session);
 const port = 5000;
 
-io.on('connection', (socket) => {
-  socket.on('chat', (msg: any) => {
-    io.emit('back', msg);
-  });
-  socket.on('disconnect', () => {
-    console.log('a clent disconnect');
-  });
-});
+//聊天组件
+chat(io);
+
 server.listen(port, () =>
   console.log(`server is running at http://localhost:${port}`)
 );
