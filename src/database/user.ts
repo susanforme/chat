@@ -1,16 +1,15 @@
-//这是一个测试数据库搭建
 import mongoose from 'mongoose';
 mongoose.connect('mongodb://localhost:27017/chat', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 const Schema = mongoose.Schema;
-let TopicSchema = new Schema({
-  account: {
+const UserSchema = new Schema({
+  user: {
     type: String,
     required: true,
   },
-  content: {
+  password: {
     type: String,
     required: true,
   },
@@ -19,6 +18,6 @@ let TopicSchema = new Schema({
     default: Date.now(), //不传入创建时间的默认方法
   },
 });
-const Topic = mongoose.model('Topic', TopicSchema);
+const User = mongoose.model('User', UserSchema);
 
-export default Topic;
+export default User;

@@ -7,7 +7,7 @@ import setConfig from './config';
 const app = express();
 const server = http.createServer(app);
 const io = socket(server);
-const port = 5000;
+const port = 5050;
 
 //聊天组件
 chat(io);

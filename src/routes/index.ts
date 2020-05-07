@@ -1,13 +1,9 @@
 import express from 'express';
-import admin from './admin';
 import captcha from './captcha';
 import error from './error';
 import home from './home';
 
 const router = express.Router();
-
-//admin测试,正式构建请删除
-router.use(admin);
 
 //验证码处理
 router.use(captcha);
