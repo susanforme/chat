@@ -6,32 +6,37 @@
     <title>Document</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.js"></script>
   </head>
   <body>
     <button>button</button>
+    <input type="text" id="id" value="5eb40ecc019655368446fa38" />
   </body>
   <script>
     const btn = document.querySelector('button');
     const socket = io('http://localhost:5050');
+    let id = '';
     btn.onclick = function () {
       let info = {
-        sendId: this.id, // 发送者id
-        id: this.sendFriend, // 接收者id
-        userName: this.userName, // 发送者用户名
-        img: this.userImg, // 发送者头像
+        sendId: id, // 发送者id
+        receiveId: $('#id').val(), // 接收者id
         msg: 'html', // 发送内容
       };
       socket.emit('chat', info);
     };
-    socket.on('back', (msg) => {
+    socket.on('back', (data) => {
       const h1 = document.createElement('h1');
-      h1.textContent = msg.msg + ' ' + msg.id;
+      h1.textContent = data.msg;
       document.body.appendChild(h1);
     });
     axios
       .get('http://localhost:5050/check', { withCredentials: true })
       .then((data) => {
-        console.log(data.data);
+        if (!data.data.status) {
+          location.href = './login.html';
+        }
+        id = data.data.data._id;
+        console.log(id);
       });
   </script>
 </html>

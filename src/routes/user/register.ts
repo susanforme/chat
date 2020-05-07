@@ -19,6 +19,10 @@ router.post('/register', (req, res) => {
       return res.send({ status: 0, msg: '注册失败请重试' });
     }
     const { id, createTime, userName } = data;
+    if (req.session) {
+      //设置session,在权限鉴定的时候通过这个判断是否登录,在get的同时
+      req.session.userName = data.userName;
+    }
     res.send({ status: 1, data: { id, createTime, userName } });
   });
 });

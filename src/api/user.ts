@@ -44,5 +44,5 @@ export function findByNameUser(body: UserMsg, callback: Function) {
 
 type UserMsg = {
   userName: string;
-  password: string;
+  password?: string;
 };
