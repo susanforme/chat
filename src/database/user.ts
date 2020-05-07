@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost:27017/chat', {
 });
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
-  user: {
+  userName: {
     type: String,
     required: true,
   },
@@ -14,8 +14,8 @@ const UserSchema = new Schema({
     required: true,
   },
   createTime: {
-    type: Date,
-    default: Date.now(), //不传入创建时间的默认方法
+    type: String,
+    default: new Date().toLocaleString(), //不传入创建时间的默认方法
   },
 });
 const User = mongoose.model('User', UserSchema);

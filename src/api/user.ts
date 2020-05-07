@@ -21,7 +21,7 @@ export function addUser(data: UserMsg, callback: Function) {
   });
 }
 //通过id查询
-export function findByIdUser(id: any, callback: Function) {
+export function findByIdUser(id: string, callback: Function) {
   User.findById(id, function (err, res) {
     if (err) {
       callback(err);
@@ -32,8 +32,8 @@ export function findByIdUser(id: any, callback: Function) {
 }
 
 //登录
-export function findByNameUser(userName: string, callback: Function) {
-  User.findOne({ userName }, function (err, res) {
+export function findByNameUser(body: UserMsg, callback: Function) {
+  User.findOne(body, 'userName', function (err, res) {
     if (err) {
       callback(err);
     } else {
