@@ -18,9 +18,9 @@ router.post('/login', (req, res) => {
     if (data) {
       if (req.session) {
         //设置session,在权限鉴定的时候通过这个判断是否登录,在get的同时
-        req.session.user = data.userName;
+        req.session.userName = data.userName;
       }
-      return res.send(data);
+      return res.send({ status: 1, data });
     }
     return res.send({ status: 0, msg: '账号或者密码错误' });
   });

@@ -19,7 +19,7 @@ router.post('/register', (req, res) => {
       return res.send({ status: 0, msg: '注册失败请重试' });
     }
     const { id, createTime, userName } = data;
-    res.send({ id, createTime, userName });
+    res.send({ status: 1, data: { id, createTime, userName } });
   });
 });
 

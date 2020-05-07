@@ -4,13 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
   </head>
   <body>
-    <h1>test</h1>
-    <script>
-      fetch('http://ip-api.com/json/?lang=zh-CN')
-        .then((data) => data.json())
-        .then((json) => console.log(json));
-    </script>
+    <button>button</button>
   </body>
+  <script>
+    const btn = document.querySelector('button');
+    const socket = io('http://localhost:5050');
+    btn.onclick = function () {
+      let info = {
+        sendId: this.id, // 发送者id
+        id: this.sendFriend, // 接收者id
+        userName: this.userName, // 发送者用户名
+        img: this.userImg, // 发送者头像
+        msg: 'html', // 发送内容
+      };
+      socket.emit('chat', info);
+    };
+    socket.on('back', (msg) => {
+      const h1 = document.createElement('h1');
+      h1.textContent = msg.msg + ' ' + msg.id;
+      document.body.appendChild(h1);
+    });
+    axios
+      .get('http://localhost:5050/check', { withCredentials: true })
+      .then((data) => {
+        console.log(data.data);
+      });
+  </script>
 </html>
