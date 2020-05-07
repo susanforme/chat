@@ -6,13 +6,16 @@ import { addUser } from '../../api/user';
 const router = express.Router();
 
 router.post('/register', (req, res) => {
-  const { password } = req.body;
+  const { password, userName } = req.body;
   const body = {
-    ...req.body,
+    userName,
     password: MD5(password + constant.SECRET_USER_STRING).toString(),
   };
   addUser(body, (err: any, data: Body) => {
     if (err) {
+      if (err.msg) {
+        return res.send(err);
+      }
       return res.send({ status: 0, msg: '注册失败请重试' });
     }
     const { id, createTime, userName } = data;

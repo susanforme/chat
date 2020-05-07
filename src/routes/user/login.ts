@@ -6,17 +6,19 @@ import { findByNameUser } from '../../api/user';
 const router = express.Router();
 
 router.post('/login', (req, res) => {
-  const { password } = req.body;
+  const { password, userName } = req.body;
   const body = {
-    ...req.body,
+    userName,
     password: MD5(password + constant.SECRET_USER_STRING).toString(),
   };
   findByNameUser(body, (err: any, data: Document | null) => {
     if (err) {
-      console.log(err);
-      return res.send({ status: 0, msg: '服务器错误请稍后再试' });
+      return res.status(500).send({ status: 0, msg: '服务器错误请稍后再试' });
     }
-    return res.send(data);
+    if (data) {
+      return res.send(data);
+    }
+    return res.send({ status: 0, msg: '账号或者密码错误' });
   });
 });
 

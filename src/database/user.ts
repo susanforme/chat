@@ -17,6 +17,10 @@ const UserSchema = new Schema({
     type: String,
     default: new Date().toLocaleString(), //不传入创建时间的默认方法
   },
+  admin: {
+    type: Boolean,
+    default: false,
+  },
 });
 const User = mongoose.model('User', UserSchema);
 
