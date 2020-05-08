@@ -9,14 +9,6 @@ import mongo from 'connect-mongo';
 const MongoStore = mongo(session);
 
 function setConfig(app: express.Express) {
-  app.all('*', function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Credentials');
-    next();
-  });
-
   //body解析中间件
   app.use(bodyPareser.json());
 
@@ -27,7 +19,7 @@ function setConfig(app: express.Express) {
       resave: false,
       name:
         'connect.sid' /*保存在本地cookie的一个名字 默认connect.sid  可以不设置*/,
-      cookie: { maxAge: 2592000000 }, //过期时间
+      cookie: { maxAge: 2592000000, sameSite: 'lax' }, //过期时间
       rolling: true, //在每次请求时强行设置 cookie，这将重置 cookie 过期时间（默认：false）
       store: new MongoStore({
         url: 'mongodb://localhost:27017/chat', //数据库的地址  shop是数据库名
@@ -41,8 +33,20 @@ function setConfig(app: express.Express) {
   app.set('view engine', 'html');
   swig.setDefaults({ cache: false });
   app.use('/public', express.static(path.join(__dirname, '../../public')));
-  console.log(path.join(__dirname, '../../public'));
 
+  app.all('*', function (req, res, next) {
+    //允许跨域域名
+    const origin = ['http://127.0.0.1:5500'];
+    if (origin.includes(req.headers.origin as string)) {
+      //跨域
+      res.header('Access-Control-Allow-Origin', req.headers.origin);
+      res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+      res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+      res.header('Access-Control-Allow-Credentials', 'true');
+      res.header('Access-Control-Allow-Headers', 'Content-Type');
+    }
+    next();
+  });
   //路由中间件写最后
   app.use(router);
 }

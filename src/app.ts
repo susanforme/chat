@@ -16,5 +16,5 @@ chat(io);
 setConfig(app);
 
 server.listen(port, () =>
-  console.log(`server is running at http://localhost:${port}`)
+  console.log(`server is running at http://127.0.0.1:${port}`)
 );
