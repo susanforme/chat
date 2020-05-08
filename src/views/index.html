@@ -14,7 +14,7 @@
   </body>
   <script>
     const btn = document.querySelector('button');
-    const socket = io('http://127.0.0.1:5050');
+    const socket = io('https://127.0.0.1:5050');
     let id = '';
     btn.onclick = function () {
       let info = {
@@ -30,7 +30,7 @@
       document.body.appendChild(h1);
     });
     axios
-      .get('http://127.0.0.1:5050/check', { withCredentials: true })
+      .get('https://127.0.0.1:5050/check', { withCredentials: true })
       .then((data) => {
         if (!data.data.status) {
           location.href = './login';

@@ -17,7 +17,7 @@
     <script>
       $('#login').click(() => {
         axios
-          .post('http://127.0.0.1:5050/login', {
+          .post('https://127.0.0.1:5050/login', {
             userName: $('#user').val(),
             password: CryptoJS.MD5($('#password').val()).toString(),
           })
@@ -29,7 +29,7 @@
       });
       $('#regi').click(() => {
         axios
-          .post('http://127.0.0.1:5050/register', {
+          .post('https://127.0.0.1:5050/register', {
             userName: $('#user').val(),
             password: CryptoJS.MD5($('#password').val()).toString(),
           })
