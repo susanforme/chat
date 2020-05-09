@@ -5,8 +5,7 @@ const router = express.Router();
 
 router.get('/captcha', (req, res) => {
   const captcha = svgCaptcha.create();
-  console.log(captcha.text);
-  res.type('svg').send(captcha.data);
+  res.send({ status: 1, data: { img: captcha.data, text: captcha.text } });
 });
 
 export default router;

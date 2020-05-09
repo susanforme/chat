@@ -13,7 +13,7 @@
     <button>button</button>
     <input type="text" id="id" value="5eb40ecc019655368446fa38" />
     <form
-      action="https://127.0.0.1:5050/upload/img"
+      action="https://127.0.0.1/upload/img"
       method="post"
       enctype="multipart/form-data"
     >
@@ -23,7 +23,7 @@
   </body>
   <script>
     const btn = document.querySelector('button');
-    const socket = io('https://127.0.0.1:5050');
+    const socket = io('https://127.0.0.1');
     let id = '';
     btn.onclick = function () {
       let info = {
@@ -39,7 +39,7 @@
       document.body.appendChild(h1);
     });
     axios
-      .get('https://127.0.0.1:5050/check', { withCredentials: true })
+      .get('https://127.0.0.1/user/check', { withCredentials: true })
       .then((data) => {
         if (!data.data.status) {
           location.href = './login';

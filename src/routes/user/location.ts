@@ -1,8 +1,9 @@
 import express from 'express';
-import img from './img';
 
 const router = express.Router();
 
-router.use(img);
+router.get('/profile', (req, res) => {
+  res.send('profile');
+});
 
 export default router;

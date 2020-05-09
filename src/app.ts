@@ -13,7 +13,7 @@ const options = { key, cert };
 
 const server = https.createServer(options, app);
 const io = socket(server);
-const port = 5050;
+const port = 443;
 
 //聊天组件
 chat(io);

@@ -3,6 +3,7 @@ import register from './register';
 import profile from './profile';
 import check from './authority';
 import express from 'express';
+import captcha from './captcha';
 
 const router = express.Router();
 //登录
@@ -16,5 +17,8 @@ router.use(profile);
 
 //cookie头
 router.use(check);
+
+//验证码处理
+router.use(captcha);
 
 export default router;
