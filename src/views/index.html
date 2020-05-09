@@ -12,6 +12,14 @@
     <img src="" alt="" id="img" />
     <button>button</button>
     <input type="text" id="id" value="5eb40ecc019655368446fa38" />
+    <form
+      action="https://127.0.0.1:5050/upload/img"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="avatar" />
+      <input type="submit" value="submit" />
+    </form>
   </body>
   <script>
     const btn = document.querySelector('button');
