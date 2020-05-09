@@ -6,7 +6,7 @@ function chat(io: socket.Server) {
         .sort()
         .reduce((pre, curr) => pre + curr);
       socket.join(roomId);
-      io.to(roomId).emit('back', data);
+      io.to(roomId).emit('back', { status: 1, data });
     });
     socket.on('disconnect', () => {
       // console.log('a clent disconnect');

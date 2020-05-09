@@ -35,8 +35,6 @@ function setConfig(app: express.Express) {
   app.use('/public', express.static(path.join(__dirname, '../../public')));
 
   app.all('*', function (req, res, next) {
-    console.log(req.ip);
-
     //允许跨域域名
     const origin = ['http://127.0.0.1:5500'];
     if (origin.includes(req.headers.origin as string)) {

@@ -1,13 +1,13 @@
 import express from 'express';
 import error from './error';
-import home from './home';
 import user from './user';
 import upload from './upload';
+import render from './render';
 
 const router = express.Router();
 
-//home
-router.use(home);
+//渲染静态页面
+router.use(render);
 
 //user所有路由
 router.use('/user/', user);

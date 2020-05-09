@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -44,6 +44,184 @@
         if (!data.data.status) {
           location.href = './login';
         }
+        document
+          .querySelector('#img')
+          .setAttribute('src', data.data.data.headImg);
+        id = data.data.data._id;
+        console.log(id);
+      });
+  </script>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>简易聊天室</title>
+    <style type="text/css">
+      @media screen and (min-width: 320px) and (max-width: 1156px) {
+        .talk_con_mob {
+          width: 600px;
+          height: 500px;
+          border: 1px solid #666;
+          margin: 50px auto 0;
+          background: #f9f9f9;
+        }
+        .talk_show_mob {
+          width: 580px;
+          height: 420px;
+          border: 1px solid #666;
+          background: #fff;
+          margin: 10px auto 0;
+          overflow: auto;
+        }
+        .talk_input_mob {
+          width: 580px;
+          margin: 10px auto 0;
+        }
+        .talk_word_mob {
+          width: 420px;
+          height: 26px;
+          padding: 0px;
+          float: left;
+          margin-left: 10px;
+          outline: none;
+          text-indent: 10px;
+        }
+      }
+      .talk_con {
+        width: 600px;
+        height: 500px;
+        border: 1px solid #666;
+        margin: 50px auto 0;
+        background: #f9f9f9;
+      }
+      .talk_show {
+        width: 580px;
+        height: 420px;
+        border: 1px solid #666;
+        background: #fff;
+        margin: 10px auto 0;
+        overflow: auto;
+      }
+      .talk_input {
+        width: 580px;
+        margin: 10px auto 0;
+      }
+      .whotalk {
+        width: 80px;
+        height: 30px;
+        float: left;
+        outline: none;
+      }
+      .talk_word {
+        width: 420px;
+        height: 26px;
+        padding: 0px;
+        float: left;
+        margin-left: 10px;
+        outline: none;
+        text-indent: 10px;
+      }
+      .talk_sub {
+        width: 56px;
+        height: 30px;
+        float: right;
+        margin-right: 10px;
+      }
+      .atalk {
+        margin: 10px;
+      }
+      .atalk span {
+        display: inline-block;
+        background: #0181cc;
+        border-radius: 10px;
+        color: #fff;
+        padding: 5px 10px;
+      }
+      .btalk {
+        margin: 10px;
+        text-align: right;
+      }
+      .btalk span {
+        display: inline-block;
+        background: #ef8201;
+        border-radius: 10px;
+        color: #fff;
+        padding: 5px 10px;
+      }
+    </style>
+    <style>
+      #img {
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.js"></script>
+  </head>
+  <body>
+    <img src="" alt="" id="img" />
+    <div class="talk_con" id="talk_con_id">
+      <div class="talk_show" id="words">
+        <div class="atalk"><span id="asay">欢迎进入模拟客户聊天</span></div>
+      </div>
+      <div class="talk_input" id="talk_input_id">
+        >
+        <input type="text" class="talk_word" id="talkwords" />
+        <input
+          type="text"
+          id="receive"
+          placeholder="接受者id"
+          value="5eb64ea004f3ff3504cdc861"
+        />
+        <button type="button" value="发送" class="talk_sub" id="talksub">
+          发送
+        </button>
+      </div>
+    </div>
+  </body>
+  <script>
+    const btn = document.querySelector('button');
+    const socket = io('https://127.0.0.1');
+    let id = '';
+    btn.onclick = function () {
+      let info = {
+        send: {
+          id,
+          userName: '',
+        }, // 发送者id
+        receive: {
+          id: $('#receive').val(),
+          userName: '',
+        }, // 接收者id
+        msg: $('#talkwords').val(), // 发送内容
+      };
+      socket.emit('chat', info);
+    };
+    socket.on('back', (res) => {
+      const div = document.createElement('div');
+      const span = document.createElement('span');
+      console.log(res);
+      if (res.data.send.id === id) {
+        div.className = 'btalk';
+      } else {
+        div.className = 'atalk';
+      }
+      span.innerHTML =
+        'id: ' + res.data.send.id + '<br/>' + '消息: ' + res.data.msg;
+      div.appendChild(span);
+      document.getElementById('words').appendChild(div);
+    });
+    axios
+      .get('https://127.0.0.1/user/check', { withCredentials: true })
+      .then((data) => {
+        if (!data.data.status) {
+          location.href = './login';
+        }
+        console.log(data);
         document
           .querySelector('#img')
           .setAttribute('src', data.data.data.headImg);
