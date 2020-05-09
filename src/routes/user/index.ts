@@ -1,7 +1,7 @@
 import login from './login';
 import register from './register';
 import profile from './profile';
-import check from './authority';
+import check from './check';
 import express from 'express';
 import captcha from './captcha';
 
