@@ -2,10 +2,8 @@ import express from 'express';
 import captcha from './captcha';
 import error from './error';
 import home from './home';
-import login from './user/login';
-import register from './user/register';
-import profile from './user/profile';
-import check from './user/authority';
+import user from './user';
+import upload from './upload';
 
 const router = express.Router();
 
@@ -15,17 +13,11 @@ router.use(captcha);
 //home
 router.use(home);
 
-//登录
-router.use(login);
+//user所有路由
+router.use(user);
 
-//注册
-router.use(register);
-
-//查询单个用户的个人页面的
-router.use(profile);
-
-//cookie头
-router.use(check);
+//上传
+router.use(upload);
 
 //注意二级目录放在一级的前面
 //注意错误处理一定要放在最后
