@@ -1,10 +1,10 @@
 import express from 'express';
-import COS from 'cos-nodejs-sdk-v5';
 import formidable from 'formidable';
 import dotenv from 'dotenv';
 import path from 'path';
 import process from 'process';
 import fs from 'fs';
+const COS = require('cos-nodejs-sdk-v5');
 
 const router = express.Router();
 const ID_KEY = dotenv.config({ path: path.join(process.cwd(), '/bin/.env') })
