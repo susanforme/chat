@@ -9,6 +9,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.js"></script>
   </head>
   <body>
+    <img src="" alt="" id="img" />
     <button>button</button>
     <input type="text" id="id" value="5eb40ecc019655368446fa38" />
   </body>
@@ -35,6 +36,9 @@
         if (!data.data.status) {
           location.href = './login';
         }
+        document
+          .querySelector('#img')
+          .setAttribute('src', data.data.data.headImg);
         id = data.data.data._id;
         console.log(id);
       });
