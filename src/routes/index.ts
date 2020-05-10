@@ -3,6 +3,7 @@ import error from './error';
 import user from './user';
 import upload from './upload';
 import render from './render';
+import chat from './chat';
 
 const router = express.Router();
 
@@ -14,6 +15,9 @@ router.use('/user', user);
 
 //上传
 router.use('/upload', upload);
+
+//聊天模块
+router.use('/chat', chat);
 
 //注意二级目录放在一级的前面
 //注意错误处理一定要放在最后
