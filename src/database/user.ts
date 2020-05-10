@@ -17,13 +17,13 @@ const UserSchema = new Schema({
     type: String,
     default: new Date().toLocaleString(), //不传入创建时间的默认方法
   },
-  admin: {
-    type: Boolean,
-    default: false,
-  },
   headImg: {
     type: String,
     required: true,
+  },
+  balance: {
+    type: Number,
+    default: 0,
   },
 });
 const User = mongoose.model('User', UserSchema);
