@@ -1,7 +1,7 @@
 import Record from '../database/record';
 
 export function updateRecord(uploadData: uploadMsg, callback: Function) {
-  const { roomId, send, receive, msg, createTime } = uploadData;
+  const { roomId, send, receive, msg, createTime, userIds } = uploadData;
   Record.findOne({ roomId: uploadData.roomId }, (err, data: Room) => {
     if (err) {
       return callback({ status: 0, data: { msg: '网络错误' } });
@@ -19,6 +19,7 @@ export function updateRecord(uploadData: uploadMsg, callback: Function) {
     }
     const record = new Record({
       roomId,
+      userIds,
       record: [{ send, receive, msg, createTime }],
     });
     record.save((err, data) => {
@@ -35,6 +36,7 @@ interface Room {
   roomId: string;
   createTime: string;
   record: RecordList;
+  userIds: string[];
 }
 
 interface uploadMsg {
@@ -49,6 +51,7 @@ interface uploadMsg {
   };
   msg: string;
   createTime: string;
+  userIds: string[];
 }
 
 type RecordList = {

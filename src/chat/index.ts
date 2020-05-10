@@ -4,12 +4,16 @@ import { updateRecord } from '@/api/record';
 function chat(io: socket.Server) {
   io.on('connection', (socket) => {
     socket.on('chat', (data: uploadMsg) => {
-      const roomId = [data.send.id, data.receive.id]
-        .sort()
-        .reduce((pre, curr) => pre + curr);
+      const userIds = [data.send.id, data.receive.id];
+      const roomId = userIds.sort().reduce((pre, curr) => pre + curr);
       socket.join(roomId);
       io.to(roomId).emit('back', { status: 1, data });
-      const body = { ...data, createTime: new Date().toLocaleString(), roomId };
+      const body = {
+        ...data,
+        createTime: new Date().toLocaleString(),
+        roomId,
+        userIds,
+      };
       updateRecord(body, (err: any, data: any) => {
         if (err) {
           return console.log(`roomId 为${roomId}的聊天记录保存失败`);
@@ -37,4 +41,5 @@ interface uploadMsg {
   };
   msg: string;
   createTime?: string;
+  userIds?: string[];
 }

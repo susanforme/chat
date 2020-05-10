@@ -17,6 +17,10 @@ const RecordSchema = new Schema({
     type: Array,
     default: [],
   },
+  userIds: {
+    type: Array,
+    required: true,
+  },
 });
 const Record = mongoose.model<IRecord>('Record', RecordSchema);
 
@@ -26,6 +30,7 @@ interface IRecord extends mongoose.Document {
   roomId: string;
   createTime: string;
   record: RecordList;
+  userIds: Ids;
 }
 
 type RecordList = {
@@ -40,3 +45,5 @@ type RecordList = {
   msg: string;
   createTime: string;
 }[];
+
+type Ids = string[];
