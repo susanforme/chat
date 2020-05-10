@@ -32,6 +32,31 @@ export function updateRecord(uploadData: uploadMsg, callback: Function) {
   });
 }
 
+export function queryPersonalChatList(id: string, callback: Function) {
+  Record.find({ userIds: id }, 'userIds', (err, data) => {
+    if (err) {
+      return callback({ status: 0, data: { msg: '服务器内部错误' } });
+    }
+    const body = data.map((v) => {
+      return v.userIds.filter((v) => v !== id)[0];
+    });
+    callback(null, body);
+  });
+}
+
+export function queryPersonalHistoryChat(
+  userIds: string[],
+  callback: Function
+) {
+  const roomId = userIds.sort().reduce((pre, cur) => pre + cur);
+  Record.findOne({ roomId }, 'record', (err, data) => {
+    if (err) {
+      return callback({ status: 0, data: { msg: '服务器内部错误' } });
+    }
+    callback(null, data);
+  });
+}
+
 interface Room {
   roomId: string;
   createTime: string;

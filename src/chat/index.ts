@@ -7,7 +7,10 @@ function chat(io: socket.Server) {
       const userIds = [data.send.id, data.receive.id];
       const roomId = userIds.sort().reduce((pre, curr) => pre + curr);
       socket.join(roomId);
-      io.to(roomId).emit('back', { status: 1, data });
+      io.to(roomId).emit('back', {
+        status: 1,
+        data: { ...data, createTime: new Date().toLocaleString() },
+      });
       const body = {
         ...data,
         createTime: new Date().toLocaleString(),

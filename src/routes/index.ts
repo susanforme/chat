@@ -10,7 +10,7 @@ const router = express.Router();
 router.use(render);
 
 //user所有路由
-router.use('/user/', user);
+router.use('/user', user);
 
 //上传
 router.use('/upload', upload);
