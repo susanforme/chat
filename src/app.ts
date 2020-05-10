@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import express from 'express';
 import https from 'https';
 import socket from 'socket.io';

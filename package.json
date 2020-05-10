@@ -16,6 +16,7 @@
     "@types/express-session": "^1.17.0",
     "@types/formidable": "^1.0.31",
     "@types/identicon.js": "^2.3.0",
+    "@types/module-alias": "^2.0.0",
     "@types/mongoose": "^5.7.15",
     "@types/node": "^13.13.4",
     "@types/socket.io": "^2.1.4",
@@ -38,9 +39,13 @@
     "express-session": "^1.17.1",
     "formidable": "^1.2.2",
     "identicon.js": "^2.3.3",
+    "module-alias": "^2.2.2",
     "mongoose": "^5.9.12",
     "socket.io": "^2.3.0",
     "svg-captcha": "^1.4.0",
     "swig": "^1.4.2"
+  },
+  "_moduleAliases": {
+    "@": "src"
   }
 }

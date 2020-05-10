@@ -1,7 +1,7 @@
 import express from 'express';
 import MD5 from 'crypto-js/md5';
-import constant from '../../constant';
-import { addUser } from '../../api/user';
+import constant from '@/constant';
+import { addUser } from '@/api/user';
 
 const router = express.Router();
 
