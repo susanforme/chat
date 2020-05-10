@@ -23,6 +23,7 @@ export function updateRecord(uploadData: uploadMsg, callback: Function) {
     });
     record.save((err, data) => {
       if (err) {
+        console.log(err);
         return callback({ status: 0, data: { msg: '服务器错误' } });
       }
       callback(null, data);

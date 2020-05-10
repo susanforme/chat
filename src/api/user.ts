@@ -6,7 +6,7 @@ import SHA512 from 'crypto-js/sha512';
 export function addUser(data: UserMsg, callback: Function) {
   const { userName } = data;
   const hash = SHA512(userName).toString();
-  const headImg = `data:image/png;base64,${new Idention(hash, 320).toString()}`;
+  const headImg = `data:image/png;base64,${new Idention(hash, 64).toString()}`;
   const user = new User({ ...data, headImg });
   User.findOne({ userName }, (err, res) => {
     if (err) {
