@@ -4,6 +4,7 @@ import profile from './profile';
 import check from './check';
 import express from 'express';
 import captcha from './captcha';
+import location from './location';
 
 const router = express.Router();
 //登录
@@ -20,5 +21,8 @@ router.use(check);
 
 //验证码处理
 router.use(captcha);
+
+//地址
+router.use(location);
 
 export default router;

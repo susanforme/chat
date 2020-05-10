@@ -1,49 +1,50 @@
 import mongoose from 'mongoose';
+
 mongoose.connect('mongodb://localhost:27017/chat', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 const Schema = mongoose.Schema;
-const RecordSchema = new Schema({
-  roomId: {
-    type: String,
-    required: true,
-  },
+const CommoditySchema = new Schema({
   createTime: {
     type: String,
     default: new Date().toLocaleString(), //不传入创建时间的默认方法
   },
-  record: {
-    type: Array,
-    default: [],
+  name: {
+    type: String,
+    required: true,
   },
-  userIds: {
+  kind: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  imgPath: {
     type: Array,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
+  owner: {
+    type: String,
+    required: true,
+  },
 });
-const Record = mongoose.model<IRecord>('Record', RecordSchema);
+const Commodity = mongoose.model<ICommodity>('Commodity', CommoditySchema);
 
-export default Record;
+export default Commodity;
 
-interface IRecord extends mongoose.Document {
-  roomId: string;
+interface ICommodity extends mongoose.Document {
   createTime: string;
-  record: RecordList;
-  userIds: Ids;
+  name: string;
+  kind: string;
+  price: number;
+  imgPath: string[];
+  description: string;
+  owner: string;
 }
-
-type RecordList = {
-  send: {
-    id: string;
-    userName: string;
-  };
-  receive: {
-    id: string;
-    userName: string;
-  };
-  msg: string;
-  createTime: string;
-}[];
-
-type Ids = string[];
