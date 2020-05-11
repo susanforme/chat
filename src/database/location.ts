@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost:27017/chat', {
   useUnifiedTopology: true,
 });
 const Schema = mongoose.Schema;
-const locationSchema = new Schema({
+const LocationSchema = new Schema({
   createTime: {
     type: String,
     default: new Date().toLocaleString(), //不传入创建时间的默认方法
@@ -16,7 +16,7 @@ const locationSchema = new Schema({
   },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
 });
-const Location = mongoose.model<ILocation>('Location', locationSchema);
+const Location = mongoose.model<ILocation>('Location', LocationSchema);
 
 export default Location;
 

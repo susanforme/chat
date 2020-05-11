@@ -34,6 +34,10 @@ const CommoditySchema = new Schema({
     type: String,
     required: true,
   },
+  isSale: {
+    type: String,
+    default: false,
+  },
 });
 const Commodity = mongoose.model<ICommodity>('Commodity', CommoditySchema);
 
@@ -47,4 +51,5 @@ interface ICommodity extends mongoose.Document {
   imgPath: string[];
   description: string;
   owner: string;
+  isSale: boolean;
 }
