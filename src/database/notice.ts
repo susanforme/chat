@@ -5,23 +5,21 @@ mongoose.connect('mongodb://localhost:27017/chat', {
   useUnifiedTopology: true,
 });
 const Schema = mongoose.Schema;
-const LocationSchema = new Schema({
+const NoticeSchema = new Schema({
   createTime: {
     type: String,
     default: new Date().toLocaleString(), //不传入创建时间的默认方法
   },
-  information: {
-    type: Array,
+  content: {
+    type: String,
     required: true,
   },
-  user: { type: Schema.Types.ObjectId, ref: 'User' },
 });
-const Location = mongoose.model<ILocation>('Location', LocationSchema);
+const Notice = mongoose.model<INotice>('Notice', NoticeSchema);
 
-export default Location;
+export default Notice;
 
-interface ILocation extends mongoose.Document {
+interface INotice extends mongoose.Document {
   createTime: string;
-  information: { name: string; area: string; phoneNum: number }[];
-  user: any;
+  content: string;
 }
