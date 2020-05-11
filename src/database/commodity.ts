@@ -38,6 +38,7 @@ const CommoditySchema = new Schema({
     type: String,
     default: false,
   },
+  comment: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 const Commodity = mongoose.model<ICommodity>('Commodity', CommoditySchema);
 
@@ -52,4 +53,5 @@ interface ICommodity extends mongoose.Document {
   description: string;
   owner: string;
   isSale: boolean;
+  comment: any[];
 }
