@@ -2,14 +2,10 @@ import express from 'express';
 import error from './error';
 import user from './user';
 import upload from './upload';
-import render from './render';
 import chat from './chat';
 import commodity from './commodity';
 
 const router = express.Router();
-
-//渲染静态页面
-router.use(render);
 
 //user所有路由
 router.use('/user', user);
