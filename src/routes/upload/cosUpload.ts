@@ -18,7 +18,7 @@ function cosUpload(options: Options, callback: Function) {
     {
       Bucket: 'static-resource-1256396014' /* 必须 */,
       Region: 'ap-nanjing' /* 必须 */,
-      Key: `/img/${fileName + hash}${extname}` /* 必须 */,
+      Key: `/img/public/${fileName + hash}${extname}` /* 必须 */,
       StorageClass: 'STANDARD',
       Body: fs.createReadStream(filePath), // 上传文件对象
     },
