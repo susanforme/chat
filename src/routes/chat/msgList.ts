@@ -1,5 +1,5 @@
 import express from 'express';
-import { queryPersonalChatList } from '@/api/record';
+import { queryPersonalChatList } from '@/controllers/record';
 
 const router = express.Router();
 

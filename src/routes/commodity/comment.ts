@@ -1,5 +1,5 @@
-import { insertComment } from '@/api/comment';
-import { updateCommoidtyComment } from '@/api/commodity';
+import { insertComment } from '@/controllers/comment';
+import { updateCommoidtyComment } from '@/controllers/commodity';
 import express from 'express';
 
 const router = express.Router();

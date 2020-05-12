@@ -1,4 +1,4 @@
-import Comment from '@/database/comment';
+import Comment from '@/models/comment';
 
 //插入评论
 

@@ -1,4 +1,4 @@
-import Record from '../database/record';
+import Record from '@/models/record';
 
 export function updateRecord(uploadData: uploadMsg, callback: Function) {
   const { roomId, send, receive, msg, createTime, userIds } = uploadData;

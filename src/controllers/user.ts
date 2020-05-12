@@ -1,4 +1,4 @@
-import User from '../database/user';
+import User from '@/models/user';
 import Idention from 'identicon.js';
 import SHA512 from 'crypto-js/sha512';
 

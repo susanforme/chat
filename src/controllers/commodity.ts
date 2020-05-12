@@ -1,4 +1,4 @@
-import Commodity from '@/database/commodity';
+import Commodity from '@/models/commodity';
 
 //保存商品数据
 export function insertCommodity(uploadData: uploadMsg, callback: Function) {

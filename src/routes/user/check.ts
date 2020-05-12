@@ -1,5 +1,5 @@
 import express from 'express';
-import { findByNameUser } from '@/api/user';
+import { findByNameUser } from '@/controllers/user';
 const router = express.Router();
 
 router.get('/check', (req, res) => {

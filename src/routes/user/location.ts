@@ -1,5 +1,5 @@
 import express from 'express';
-import { updateLocation } from '@/api/location';
+import { updateLocation } from '@/controllers/location';
 
 const router = express.Router();
 
