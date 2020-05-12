@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertCommodity, queryCommodity } from '@/api/commodity';
+import { insertCommodity, queryCommodity } from '@/controllers/commodity';
 
 const router = express.Router();
 

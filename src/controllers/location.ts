@@ -1,4 +1,4 @@
-import Location from '@/database/location';
+import Location from '@/models/location';
 
 //需要判断cookie是否存在
 export function updateLocation(uploadData: uploadLocation, callback: Function) {

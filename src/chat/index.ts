@@ -1,5 +1,5 @@
 import socket from 'socket.io';
-import { updateRecord } from '@/api/record';
+import { updateRecord } from '@/controllers/record';
 
 function chat(io: socket.Server) {
   io.on('connection', (socket) => {
