@@ -26,6 +26,11 @@ function setConfig(app: express.Express) {
     })
   );
 
+  //鉴权
+  app.use('*', (req, res, next) => {
+    // 建议在细分模块再鉴权
+    next();
+  });
   //路由中间件写最后
   app.use(router);
 }

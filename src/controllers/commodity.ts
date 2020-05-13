@@ -23,7 +23,7 @@ export function queryCommodity(commodityId: string, callback: Function) {
     });
 }
 
-//更新商品页面的评论
+//更新商品页面的评论,只是负责商品部分,评论部分在评论模块更新
 export function updateCommoidtyComment(
   comment: CommodityComment,
   callback: Function

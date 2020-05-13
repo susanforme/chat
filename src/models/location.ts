@@ -22,6 +22,6 @@ export default Location;
 
 interface ILocation extends mongoose.Document {
   createTime: string;
-  information: { name: string; area: string; phoneNum: number }[];
+  information: { name: string; area: string; phoneNum: number; _id: any }[];
   user: any;
 }

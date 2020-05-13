@@ -14,13 +14,17 @@ const RecordSchema = new Schema({
     type: String,
     default: new Date().toLocaleString(), //不传入创建时间的默认方法
   },
-  record: {
-    type: Array,
-    default: [],
+  send: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
-  userIds: {
-    type: Array,
-    required: true,
+  receive: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  msg: {
+    type: String,
+    default: ' ',
   },
 });
 const Record = mongoose.model<IRecord>('Record', RecordSchema);
@@ -28,23 +32,9 @@ const Record = mongoose.model<IRecord>('Record', RecordSchema);
 export default Record;
 
 interface IRecord extends mongoose.Document {
-  roomId: string;
-  createTime: string;
-  record: RecordList;
-  userIds: Ids;
-}
-
-type RecordList = {
-  send: {
-    id: string;
-    userName: string;
-  };
-  receive: {
-    id: string;
-    userName: string;
-  };
+  send: any;
+  receive: any;
   msg: string;
   createTime: string;
-}[];
-
-type Ids = string[];
+  roomId: string;
+}
