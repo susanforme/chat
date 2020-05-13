@@ -23,6 +23,14 @@ const OrderSchema = new Schema({
     time: String,
     default: new Date().toLocaleString(),
   },
+  buyerId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  sellerId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 const Order = mongoose.model<IOrder>('Order', OrderSchema);
 
@@ -38,4 +46,6 @@ interface IOrder extends mongoose.Document {
   };
   deliveryTime: string;
   receiveTime: string;
+  sellerId: string;
+  buyerId: string;
 }

@@ -46,6 +46,43 @@ export function findByNameUser(body: UserMsg, callback: Function) {
   });
 }
 
+//查询余额
+export function queryByIdGetBalance(id: string, callback: Function) {
+  User.findById(id, 'balance', (err, data) => {
+    if (err) {
+      return callback({ status: 0, data: { msg: '服务器错误' } });
+    }
+    callback(null, data);
+  });
+}
+
+//修改余额
+export function updateBalanceById(
+  id: string,
+  amount: number,
+  callback: Function
+) {
+  // User.findByIdAndUpdate(id,{balance:})
+  User.findById(id, 'balance', (err, data) => {
+    if (err) {
+      return callback({ status: 0, data: { msg: '服务器错误' } });
+    }
+    if ((data?.balance as number) + amount < 0) {
+      return callback({ status: 0, data: { msg: '余额不足' } });
+    }
+    User.findByIdAndUpdate(
+      id,
+      { balance: (data?.balance as number) + amount },
+      (err) => {
+        if (err) {
+          return callback({ status: 0, data: { msg: '服务器错误' } });
+        }
+        callback(null);
+      }
+    );
+  });
+}
+
 type UserMsg = {
   userName: string;
   password?: string;

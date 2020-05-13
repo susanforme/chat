@@ -6,6 +6,7 @@ import express from 'express';
 import captcha from './captcha';
 import location from './location';
 import logout from './logout';
+import balance from './balance';
 
 const router = express.Router();
 //登录
@@ -28,5 +29,8 @@ router.use(captcha);
 
 //地址
 router.use(location);
+
+//余额
+router.use(balance);
 
 export default router;

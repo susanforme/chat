@@ -61,6 +61,15 @@ export function updateCommoidtySaleStatus(
   });
 }
 
+//根据用户id查询
+export function queryByOwnerIdGetCommodity(owner: string, callback: Function) {
+  Commodity.count({ owner, isSale: false }, (err, count) => {
+    if (err) {
+      return callback({ status: 0, data: { msg: '服务器错误' } });
+    }
+  });
+}
+
 interface uploadMsg {
   name: string;
   kind: string;
