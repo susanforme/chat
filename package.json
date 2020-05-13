@@ -44,8 +44,7 @@
     "module-alias": "^2.2.2",
     "mongoose": "^5.9.12",
     "socket.io": "^2.3.0",
-    "svg-captcha": "^1.4.0",
-    "swig": "^1.4.2"
+    "svg-captcha": "^1.4.0"
   },
   "_moduleAliases": {
     "@": "src"

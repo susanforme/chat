@@ -30,12 +30,9 @@ const CommoditySchema = new Schema({
     type: String,
     required: true,
   },
-  owner: {
-    type: String,
-    required: true,
-  },
+  owner: { type: Schema.Types.ObjectId, ref: 'User' },
   isSale: {
-    type: String,
+    type: Boolean,
     default: false,
   },
   comment: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
