@@ -10,17 +10,21 @@ const OrderSchema = new Schema({
     type: String,
     default: new Date().toLocaleString(), //不传入创建时间的默认方法
   },
-  commodity: { type: Schema.Types.ObjectId, ref: 'Commodity', required: true },
-  receiveMsg: {
+  commodity: {
+    type: Schema.Types.ObjectId,
+    ref: 'Commodity',
+    required: true,
+  },
+  receive: {
     type: Object,
     required: true,
   },
   deliveryTime: {
-    time: String,
+    type: String,
     default: new Date().toLocaleString(),
   },
   receiveTime: {
-    time: String,
+    type: String,
     default: new Date().toLocaleString(),
   },
   buyerId: {
@@ -31,6 +35,10 @@ const OrderSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  evaluate: {
+    type: String,
+    default: '此用户未填写评价',
+  },
 });
 const Order = mongoose.model<IOrder>('Order', OrderSchema);
 
@@ -39,7 +47,7 @@ export default Order;
 interface IOrder extends mongoose.Document {
   createTime: string;
   commodity: any;
-  receiveMsg: {
+  receive: {
     phoneNum: string;
     name: string;
     area: string;
@@ -48,4 +56,5 @@ interface IOrder extends mongoose.Document {
   receiveTime: string;
   sellerId: string;
   buyerId: string;
+  evaluate: string;
 }

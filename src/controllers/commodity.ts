@@ -61,12 +61,16 @@ export function updateCommoidtySaleStatus(
   });
 }
 
-//根据用户id查询
-export function queryByOwnerIdGetCommodity(owner: string, callback: Function) {
-  Commodity.count({ owner, isSale: false }, (err, count) => {
+//根据用户id查询本人发布的商品总个数
+export function queryByOwnerIdGetCommodityCount(
+  owner: string,
+  callback: Function
+) {
+  Commodity.countDocuments({ owner }, (err, count) => {
     if (err) {
       return callback({ status: 0, data: { msg: '服务器错误' } });
     }
+    callback(null, count);
   });
 }
 

@@ -28,10 +28,9 @@ export function addUser(data: UserMsg, callback: Function) {
 export function findByIdUser(id: string, callback: Function) {
   User.findById(id, ['userName', 'headImg'], function (err, res) {
     if (err) {
-      callback(err);
-    } else {
-      callback(null, res);
+      return callback({ status: 0, data: { msg: '服务器内部错误' } });
     }
+    callback(null, res);
   });
 }
 
