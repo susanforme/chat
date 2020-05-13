@@ -7,6 +7,7 @@ import captcha from './captcha';
 import location from './location';
 import logout from './logout';
 import balance from './balance';
+import personal from './personal';
 
 const router = express.Router();
 //登录
@@ -32,5 +33,8 @@ router.use(location);
 
 //余额
 router.use(balance);
+
+//个人主页
+router.use(personal);
 
 export default router;

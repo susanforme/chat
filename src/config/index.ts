@@ -25,6 +25,7 @@ function setConfig(app: express.Express) {
         url: 'mongodb://localhost:27017/chat', //数据库的地址  shop是数据库名
         touchAfter: 24 * 3600, // 通过这样做，设置touchAfter:24 * 3600，您在24小时内只更新一次会话，不管有多少请求(除了在会话数据上更改某些内容的除外)
       }),
+      saveUninitialized: true,
     })
   );
 
