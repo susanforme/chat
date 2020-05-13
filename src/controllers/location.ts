@@ -1,4 +1,5 @@
 import Location from '@/models/location';
+import mongoose from 'mongoose';
 
 //需要判断cookie是否存在
 export function updateLocation(uploadData: uploadLocation, callback: Function) {
@@ -11,18 +12,24 @@ export function updateLocation(uploadData: uploadLocation, callback: Function) {
       } else if (data) {
         return Location.updateOne(
           { user: uploadData.userId },
-          { information: [...data.information, { area, name, phoneNum }] },
+          {
+            information: [
+              ...data.information,
+              { area, name, phoneNum, _id: mongoose.Types.ObjectId() },
+            ],
+          },
           (err, raw) => {
             if (err) {
               return callback({ status: 0, data: { msg: '服务器错误' } });
             }
-            return callback(null, { area, name, phoneNum });
+            const { information } = data;
+            return callback(null, information);
           }
         );
       }
       const location = new Location({
         user: uploadData.userId,
-        information: [{ area, name, phoneNum }],
+        information: [{ area, name, phoneNum, _id: mongoose.Types.ObjectId() }],
       });
       location.save((err, saveData) => {
         if (err) {
@@ -40,10 +47,35 @@ export function updateLocation(uploadData: uploadLocation, callback: Function) {
     });
 }
 
+//请求地址
+export function queryLocation(user: string, callback: Function) {
+  Location.findOne({ user }, 'information', (err, data) => {
+    if (err) {
+      return callback({ status: 0, data: { msg: '服务器错误' } });
+    }
+    callback(null, data);
+  });
+}
+
+//删除单个地址
+export function deleteLocation(
+  user: string,
+  position: string,
+  callback: Function
+) {
+  Location.findOneAndUpdate(
+    { user },
+    { $pull: { information: { _id: mongoose.Types.ObjectId(position) } } },
+    (err, data) => {
+      if (err) {
+        return callback({ status: 0, data: { msg: '服务器错误' } });
+      }
+      callback(null);
+    }
+  );
+}
+
 interface uploadLocation {
-  /*
-   **
-   */
   name: string;
   area: string;
   userId: string;

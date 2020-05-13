@@ -15,10 +15,10 @@ router.post('/info', (req, res) => {
 });
 
 //请求商品信息
-router.get('/info', (req, res) => {
-  const id = req.query.id;
+router.get('/info/:id', (req, res) => {
+  const id = req.params.id;
   if (id) {
-    return queryCommodity(id as string, (err: any, data: any) => {
+    return queryCommodity(id, (err: any, data: any) => {
       if (err) {
         return res.status(500).send(err);
       }
