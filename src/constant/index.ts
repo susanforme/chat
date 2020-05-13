@@ -1,6 +1,3 @@
-enum constant {
-  SECRET_USER_STRING = 'secretUserString',
-  ADMIN_SECRET_PASSWORD = 'adminSecretPassword',
-}
+enum constant {}
 
 export default constant;

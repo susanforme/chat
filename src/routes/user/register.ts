@@ -1,7 +1,11 @@
 import express from 'express';
 import MD5 from 'crypto-js/md5';
-import constant from '@/constant';
+import dotenv from 'dotenv';
+import path from 'path';
 import { addUser } from '@/controllers/user';
+
+const PATH_ENV =
+  dotenv.config({ path: path.join(process.cwd(), '/bin/.env') }).parsed || {};
 
 const router = express.Router();
 
@@ -9,7 +13,7 @@ router.post('/register', (req, res) => {
   const { password, userName } = req.body;
   const body = {
     userName,
-    password: MD5(password + constant.SECRET_USER_STRING).toString(),
+    password: MD5(password + PATH_ENV.SECRET_USER_STRING).toString(),
   };
   addUser(body, (err: any, data: Body) => {
     if (err) {
