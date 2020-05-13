@@ -10,6 +10,8 @@ function setConfig(app: express.Express) {
   //body解析中间件
   app.use(bodyPareser.json());
 
+  // app.set('trust proxy', 1); // trust first proxy
+
   //session处理
   app.use(
     session({
@@ -17,7 +19,7 @@ function setConfig(app: express.Express) {
       resave: false,
       name:
         'connect.sid' /*保存在本地cookie的一个名字 默认connect.sid  可以不设置*/,
-      cookie: { maxAge: 2592000000, sameSite: 'lax' }, //过期时间
+      cookie: { maxAge: 2592000000, sameSite: 'lax', secure: true }, //过期时间
       rolling: true, //在每次请求时强行设置 cookie，这将重置 cookie 过期时间（默认：false）
       store: new MongoStore({
         url: 'mongodb://localhost:27017/chat', //数据库的地址  shop是数据库名

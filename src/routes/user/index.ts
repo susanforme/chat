@@ -5,6 +5,7 @@ import check from './check';
 import express from 'express';
 import captcha from './captcha';
 import location from './location';
+import logout from './logout';
 
 const router = express.Router();
 //登录
@@ -12,6 +13,9 @@ router.use(login);
 
 //注册
 router.use(register);
+
+//退出
+router.use(logout);
 
 //查询单个用户的个人页面的
 router.use(profile);
