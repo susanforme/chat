@@ -85,6 +85,15 @@ export function updateBalanceById(
   });
 }
 
+//测试代码
+export async function Test(id: string) {
+  const data = await User.findById(id, ['userName', 'headImg']);
+  if (!data) {
+    throw new Error(JSON.stringify({ status: 0, data: { msg: '查询为空' } }));
+  }
+  return data;
+}
+
 type UserMsg = {
   userName: string;
   password?: string;

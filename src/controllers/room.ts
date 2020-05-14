@@ -1,39 +1,28 @@
 import Room from '@/models/room';
 import Record from '@/models/record';
 
-export function updateRoom(uploadData: uploadMsg, callback: Function) {
+export async function updateRoom(uploadData: uploadMsg) {
   const { roomId, send, receive, msg } = uploadData;
   const record = new Record({ roomId, send, receive, msg });
-  record.save((err, product) => {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器内部错误' } });
-    }
-    Room.findOneAndUpdate(
-      { roomId },
-      { $push: { record: product.id }, users: [send, receive] },
-      { setDefaultsOnInsert: true, upsert: true },
-      (err) => {
-        if (err) {
-          return callback({ status: 0, data: { msg: '服务器内部错误' } });
-        }
-        callback(null);
-      }
-    );
-  });
+  const product = await record.save();
+  await Room.findOneAndUpdate(
+    { roomId },
+    { $push: { record: product.id }, users: [send, receive] },
+    { setDefaultsOnInsert: true, upsert: true }
+  );
+  return;
 }
 
-export function queryPersonalChatList(id: string, callback: Function) {
-  Room.find({ users: id }, 'users')
-    .populate('users', { headImg: 1, userName: 1, id: 1 })
-    .exec((err, data) => {
-      if (err) {
-        return callback({ status: 0, data: { msg: '服务器内部错误' } });
-      }
-      const body = data.map((v) => {
-        return v.users.filter((v) => v.id !== id)[0];
-      });
-      callback(null, body);
-    });
+export async function queryPersonalChatList(id: string) {
+  const data = await Room.find({ users: id }, 'users').populate('users', {
+    headImg: 1,
+    userName: 1,
+    id: 1,
+  });
+  const body = data.map((v) => {
+    return v.users.filter((v) => v.id !== id)[0];
+  });
+  return body;
 }
 
 export function queryPersonalHistoryChat(roomId: string, callback: Function) {
