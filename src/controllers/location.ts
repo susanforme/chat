@@ -2,77 +2,33 @@ import Location from '@/models/location';
 import mongoose from 'mongoose';
 
 //需要判断cookie是否存在
-export function updateLocation(uploadData: uploadLocation, callback: Function) {
+export async function updateLocation(uploadData: uploadLocation) {
   const { area, name, phoneNum } = uploadData;
-  Location.findOne({ user: uploadData.userId })
-    .populate('user')
-    .exec((err, data) => {
-      if (err) {
-        return callback({ status: 0, data: { msg: '服务器错误' } });
-      } else if (data) {
-        return Location.updateOne(
-          { user: uploadData.userId },
-          {
-            information: [
-              ...data.information,
-              { area, name, phoneNum, _id: mongoose.Types.ObjectId() },
-            ],
-          },
-          (err, raw) => {
-            if (err) {
-              return callback({ status: 0, data: { msg: '服务器错误' } });
-            }
-            const { information } = data;
-            return callback(null, information);
-          }
-        );
-      }
-      const location = new Location({
-        user: uploadData.userId,
-        information: [{ area, name, phoneNum, _id: mongoose.Types.ObjectId() }],
-      });
-      location.save((err, saveData) => {
-        if (err) {
-          return callback({ status: 0, data: { msg: '服务器错误' } });
-        }
-        Location.findOne({ user: uploadData.userId })
-          .populate('user')
-          .exec((err, data) => {
-            if (err) {
-              return callback({ status: 0, data: { msg: '服务器错误' } });
-            }
-            return callback(null, data?.information);
-          });
-      });
-    });
+  const data = await Location.findOneAndUpdate(
+    { user: uploadData.userId },
+    {
+      $push: {
+        information: { area, name, phoneNum, _id: mongoose.Types.ObjectId() },
+      },
+    },
+    { setDefaultsOnInsert: true, upsert: true }
+  );
+  return data;
 }
 
 //请求地址
-export function queryLocation(user: string, callback: Function) {
-  Location.findOne({ user }, 'information', (err, data) => {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器错误' } });
-    }
-    callback(null, data);
-  });
+export async function queryLocation(user: string) {
+  const data = await Location.findOne({ user }, 'information');
+  return data;
 }
 
 //删除单个地址
-export function deleteLocation(
-  user: string,
-  position: string,
-  callback: Function
-) {
-  Location.findOneAndUpdate(
+export async function deleteLocation(user: string, position: string) {
+  await Location.findOneAndUpdate(
     { user },
-    { $pull: { information: { _id: mongoose.Types.ObjectId(position) } } },
-    (err, data) => {
-      if (err) {
-        return callback({ status: 0, data: { msg: '服务器错误' } });
-      }
-      callback(null);
-    }
+    { $pull: { information: { _id: mongoose.Types.ObjectId(position) } } }
   );
+  return;
 }
 
 interface uploadLocation {

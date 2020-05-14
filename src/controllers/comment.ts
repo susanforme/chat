@@ -2,14 +2,10 @@ import Comment from '@/models/comment';
 
 //插入评论
 
-export function insertComment(uploadData: UploadData, callback: Function) {
+export async function insertComment(uploadData: UploadData) {
   const comment = new Comment(uploadData);
-  comment.save((err, product) => {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器错误' } });
-    }
-    callback(null, product);
-  });
+  const product = await comment.save();
+  return product;
 }
 
 interface UploadData {

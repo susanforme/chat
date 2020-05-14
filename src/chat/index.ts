@@ -17,12 +17,9 @@ function chat(io: socket.Server) {
         roomId,
         userIds,
       };
-      updateRoom(body, (err: any) => {
-        if (err) {
-          return console.log(`roomId 为${roomId}的聊天记录保存失败`);
-        }
-        console.log(`roomId 为${roomId}的聊天记录已经保存`);
-      });
+      updateRoom(body)
+        .then(() => console.log(`roomId 为${roomId}的聊天记录已经保存`))
+        .catch(() => console.log(`roomId 为${roomId}的聊天记录保存失败`));
     });
     socket.on('disconnect', () => {
       // console.log('a clent disconnect');

@@ -1,7 +1,7 @@
 import Order from '@/models/order';
 
 //提交订单
-export function insertOrder(uploadData: UploadMsg, callback: Function) {
+export async function insertOrder(uploadData: UploadMsg) {
   const {
     commodityId: commodity,
     receive,
@@ -10,42 +10,29 @@ export function insertOrder(uploadData: UploadMsg, callback: Function) {
     evaluate,
   } = uploadData;
   const order = new Order({ receive, buyerId, sellerId, evaluate, commodity });
-  order.save((err, data) => {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器内部错误' } });
-    }
-    callback(null, data);
-  });
+  const data = await order.save();
+  return data;
 }
 
 //根据订单id查询商品
-export function queryOrderByOrderId(id: string, callback: Function) {
-  Order.findById(id, (err, data) => {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器内部错误' } });
-    }
-    callback(null, data);
-  });
+export async function queryOrderByOrderId(id: string) {
+  const data = await Order.findById(id);
+  if (!data) {
+    throw new Error('商品查询为空');
+  }
+  return data;
 }
 
 //根据卖家id计数
-export function queryOrderCountBySellerId(id: string, callback: Function) {
-  Order.countDocuments({ sellerId: id }, (err, count) => {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器内部错误' } });
-    }
-    callback(null, count);
-  });
+export async function queryOrderCountBySellerId(id: string) {
+  const count = await Order.countDocuments({ sellerId: id });
+  return count;
 }
 
 //根据买家id计数
-export function queryOrderCountByBuyerId(id: string, callback: Function) {
-  Order.countDocuments({ buyerId: id }, (err, count) => {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器内部错误' } });
-    }
-    callback(null, count);
-  });
+export async function queryOrderCountByBuyerId(id: string) {
+  const count = await Order.countDocuments({ buyerId: id });
+  return count;
 }
 
 interface UploadMsg {

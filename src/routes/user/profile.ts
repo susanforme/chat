@@ -14,36 +14,20 @@ router.get('/profile/:id', (req, res) => {
   if (!id) {
     return res.status(400).send({ status: 0, data: { msg: '参数错误' } });
   }
-  findByIdUser(id, (err: any, userData: any) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    if (!userData) {
-      return res
-        .status(400)
-        .send({ status: 0, data: { msg: '查询id结果为空' } });
-    }
-    const { userName, headImg } = userData;
-    queryOrderCountByBuyerId(id, (err: any, buyCount: any) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      queryOrderCountBySellerId(id, (err: any, sellCount: any) => {
-        if (err) {
-          return res.status(500).send(err);
-        }
-        queryByOwnerIdGetCommodityCount(id, (err: any, totalCount: any) => {
-          if (err) {
-            return res.status(500).send(err);
-          }
-          res.send({
-            status: 1,
-            data: { userName, headImg, buyCount, sellCount, totalCount },
-          });
-        });
-      });
-    });
-  });
+  getProfileApiCollections(id)
+    .then((data) => res.send({ status: 1, data }))
+    .catch((err) =>
+      res.status(500).send({ status: 0, data: { msg: err.message } })
+    );
 });
 
 export default router;
+
+async function getProfileApiCollections(id: string) {
+  const userData = await findByIdUser(id);
+  const { userName, headImg } = userData;
+  const buyCount = await queryOrderCountByBuyerId(id);
+  const sellCount = await queryOrderCountBySellerId(id);
+  const totalCount = await queryByOwnerIdGetCommodityCount(id);
+  return { userName, headImg, buyCount, sellCount, totalCount };
+}

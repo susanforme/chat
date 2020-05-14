@@ -9,20 +9,29 @@ router.post('/order', (req, res) => {
   if (!(commodityId && receive && buyerId && sellerId)) {
     return res.status(400).send({ status: 0, data: { msg: '参数错误' } });
   }
-  updateCommoidtySaleStatus(commodityId, (err: any) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    insertOrder(
-      { commodityId, receive, buyerId, sellerId, evaluate },
-      (err: any, data: any) => {
-        if (err) {
-          return res.status(500).send(err);
-        }
-        res.send({ status: 1, data });
-      }
+  getOrderApiCollections({ commodityId, receive, buyerId, sellerId, evaluate })
+    .then((data) => res.send({ status: 1, data }))
+    .catch((err) =>
+      res.status(500).send({ status: 0, data: { msg: err.message } })
     );
-  });
 });
 
 export default router;
+
+async function getOrderApiCollections(body: RequestBody) {
+  await updateCommoidtySaleStatus(body.commodityId);
+  const data = await insertOrder(body);
+  return data;
+}
+
+interface RequestBody {
+  commodityId: string;
+  receive: {
+    phoneNum: string;
+    name: string;
+    area: string;
+  };
+  buyerId: string;
+  sellerId: string;
+  evaluate: string;
+}
