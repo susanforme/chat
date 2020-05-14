@@ -6,15 +6,14 @@ const router = express.Router();
 router.get('/history/:id', (req, res) => {
   const users = req.params.id.split('_');
   const roomId = users.sort().reduce((pre, cur) => pre + cur);
-  if (roomId) {
-    return queryPersonalHistoryChat(roomId, (err: any, data: any) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      res.send({ status: 1, data });
-    });
+  if (!roomId) {
+    return res.status(400).send({ status: 0, data: { msg: '参数错误' } });
   }
-  res.status(400).send({ status: 0, data: { msg: '参数错误' } });
+  queryPersonalHistoryChat(roomId)
+    .then((data) => res.send({ status: 1, data }))
+    .catch(() =>
+      res.status(500).send({ status: 0, data: { msg: '服务器错误' } })
+    );
 });
 
 export default router;

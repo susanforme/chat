@@ -25,20 +25,15 @@ export async function queryPersonalChatList(id: string) {
   return body;
 }
 
-export function queryPersonalHistoryChat(roomId: string, callback: Function) {
-  Record.find({ roomId })
+export async function queryPersonalHistoryChat(roomId: string) {
+  const data = await Record.find({ roomId })
     .populate('send', { userName: 1, id: 1, headImg: 1 })
-    .populate('receive', { userName: 1, id: 1, headImg: 1 })
-    .exec((err, data) => {
-      if (err) {
-        return callback({ status: 0, data: { msg: '服务器内部错误' } });
-      }
-      const body = data.map((v) => {
-        const { createTime, msg, send, receive } = v;
-        return { createTime, msg, send, receive };
-      });
-      callback(null, body);
-    });
+    .populate('receive', { userName: 1, id: 1, headImg: 1 });
+  const body = data.map((v) => {
+    const { createTime, msg, send, receive } = v;
+    return { createTime, msg, send, receive };
+  });
+  return body;
 }
 
 interface uploadMsg {

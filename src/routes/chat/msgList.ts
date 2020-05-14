@@ -3,6 +3,7 @@ import { queryPersonalChatList } from '@/controllers/room';
 
 const router = express.Router();
 
+//查询聊天列表有哪些人
 router.get('/msglist/:id', (req, res) => {
   const id = req.params.id;
   if (!id) {

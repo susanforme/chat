@@ -5,12 +5,11 @@ const router = express.Router();
 
 router.get('/balance/:id', (req, res) => {
   const id = req.params.id;
-  queryByIdGetBalance(id, (err: any, data: any) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    res.send({ status: 1, data });
-  });
+  queryByIdGetBalance(id)
+    .then((data) => res.send({ status: 1, data }))
+    .catch((err) =>
+      res.status(500).send({ status: 0, data: { msg: err.message } })
+    );
 });
 
 router.post('/balance', (req, res) => {
@@ -18,12 +17,11 @@ router.post('/balance', (req, res) => {
   if (!(userId && amount)) {
     return res.status(400).send({ status: 0, data: { msg: '参数错误' } });
   }
-  updateBalanceById(userId, amount, (err: any, data: any) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    res.send({ status: 1, data: { msg: '成功' } });
-  });
+  updateBalanceById(userId, amount)
+    .then(() => res.send({ status: 1 }))
+    .catch((err) =>
+      res.status(500).send({ status: 0, data: { msg: err.message } })
+    );
 });
 
 export default router;

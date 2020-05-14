@@ -3,95 +3,52 @@ import Idention from 'identicon.js';
 import SHA512 from 'crypto-js/sha512';
 
 //添加用户
-export function addUser(data: UserMsg, callback: Function) {
+export async function addUser(data: UserMsg) {
   const { userName } = data;
   const hash = SHA512(userName).toString();
   const headImg = `data:image/png;base64,${new Idention(hash, 64).toString()}`;
   const user = new User({ ...data, headImg });
-  User.findOne({ userName }, (err, res) => {
-    if (err) {
-      callback(err);
-    } else if (res) {
-      callback({ status: 0, msg: '用户名已经存在' });
-    } else {
-      user.save(function (err, product) {
-        if (err) {
-          callback(err);
-        } else {
-          callback(null, product);
-        }
-      });
-    }
-  });
+  const userData = await User.findOne({ userName });
+  if (userData) {
+    throw new Error('用户名已经存在');
+  }
+  const product = await user.save();
+  return product;
 }
 //通过id查询
-export function findByIdUser(id: string, callback: Function) {
-  User.findById(id, ['userName', 'headImg'], function (err, res) {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器内部错误' } });
-    }
-    if (!res) {
-      return callback({ status: 0, data: { msg: '查询为空' } });
-    }
-    callback(null, res);
-  });
+export async function findByIdUser(id: string) {
+  const data = await User.findById(id, ['userName', 'headImg']);
+  if (!data) {
+    throw new Error('不存在');
+  }
+  return data;
 }
 
 //登录
-export function findByNameUser(body: UserMsg, callback: Function) {
-  User.findOne(body, ['userName', 'headImg'], function (err, res) {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null, res);
-    }
-  });
+export async function findByNameUser(body: UserMsg) {
+  const data = User.findOne(body, ['userName', 'headImg']);
+  if (!data) {
+    throw new Error('账号或者密码错误');
+  }
+  return data;
 }
 
 //查询余额
-export function queryByIdGetBalance(id: string, callback: Function) {
-  User.findById(id, 'balance', (err, data) => {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器错误' } });
-    }
-    callback(null, data);
-  });
+export async function queryByIdGetBalance(id: string) {
+  const data = await User.findById(id, 'balance');
+  return data;
 }
 
 //修改余额
-export function updateBalanceById(
-  id: string,
-  amount: number,
-  callback: Function
-) {
-  // User.findByIdAndUpdate(id,{balance:})
-  User.findById(id, 'balance', (err, data) => {
-    if (err) {
-      return callback({ status: 0, data: { msg: '服务器错误' } });
-    }
-    if ((data?.balance as number) + amount < 0) {
-      return callback({ status: 0, data: { msg: '余额不足' } });
-    }
-    User.findByIdAndUpdate(
-      id,
-      { balance: (data?.balance as number) + amount },
-      (err) => {
-        if (err) {
-          return callback({ status: 0, data: { msg: '服务器错误' } });
-        }
-        callback(null);
-      }
-    );
-  });
-}
-
-//测试代码
-export async function Test(id: string) {
-  const data = await User.findById(id, ['userName', 'headImg']);
-  if (!data) {
-    throw new Error(JSON.stringify({ status: 0, data: { msg: '查询为空' } }));
+export async function updateBalanceById(id: string, amount: number) {
+  const data = await User.findById(id, 'balance');
+  if ((data?.balance as number) + amount < 0) {
+    throw new Error('余额不足');
   }
-  return data;
+  await User.findByIdAndUpdate(id, {
+    balance: (data?.balance as number) + amount,
+  });
+  return;
 }
 
 type UserMsg = {
