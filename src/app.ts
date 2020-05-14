@@ -16,11 +16,11 @@ const server = https.createServer(options, app);
 const io = socket(server);
 const port = 5050;
 
-//聊天组件
-chat(io);
-
 //配置文件
 setConfig(app);
+
+//聊天组件
+chat(io);
 
 server.listen(port, () =>
   console.log(`server is running at https://127.0.0.1:${port}`)

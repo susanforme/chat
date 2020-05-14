@@ -1,8 +1,15 @@
 import socket from 'socket.io';
 import { updateRoom } from '@/controllers/room';
+import sharedSession from 'express-socket.io-session';
+import { mySession } from '@/config';
 
 function chat(io: socket.Server) {
+  io.use(sharedSession(mySession, { autoSave: true }));
   io.on('connection', (socket) => {
+    //session不存在断开连接
+    if (!socket.handshake.session?.userName) {
+      socket.disconnect(true);
+    }
     socket.on('chat', (data: uploadMsg) => {
       const userIds = [data.send, data.receive];
       const roomId = userIds.sort().reduce((pre, curr) => pre + curr);

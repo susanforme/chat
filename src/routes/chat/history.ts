@@ -4,6 +4,9 @@ import { queryPersonalHistoryChat } from '@/controllers/room';
 const router = express.Router();
 
 router.get('/history/:id', (req, res) => {
+  if (!req.session?.userName) {
+    return res.status(401).send({ status: 0, data: { msg: '未登录' } });
+  }
   const users = req.params.id.split('_');
   const roomId = users.sort().reduce((pre, cur) => pre + cur);
   if (!roomId) {

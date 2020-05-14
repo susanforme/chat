@@ -54,7 +54,7 @@ interface IOrder extends mongoose.Document {
   };
   deliveryTime: string;
   receiveTime: string;
-  sellerId: string;
-  buyerId: string;
+  sellerId: any;
+  buyerId: any;
   evaluate: string;
 }

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6", // 指定 EECMAScript 的目标版本, 这里我们采用 es6
+    "target": "ES2018", // 指定 EECMAScript 的目标版本, 这里我们采用 es6
     "module": "commonjs", // 指定编译生成哪个模块的系统代码，考虑到兼容性，这里我们设置成 commonjs
     "outDir": "dist", // 编译输出目录，即 .ts 文件编译成 .js 文件后的输出目录。这里设置为根目录下的 /dist 目录
     "strict": true, // 严格模式

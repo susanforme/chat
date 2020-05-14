@@ -15,7 +15,8 @@ const CommoditySchema = new Schema({
     required: true,
   },
   kind: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Kind',
     required: true,
   },
   price: {
@@ -44,11 +45,11 @@ export default Commodity;
 interface ICommodity extends mongoose.Document {
   createTime: string;
   name: string;
-  kind: string;
+  kind: any;
   price: number;
   imgPath: string[];
   description: string;
-  owner: string;
+  owner: any;
   isSale: boolean;
   comment: any[];
 }

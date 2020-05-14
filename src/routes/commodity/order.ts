@@ -5,6 +5,9 @@ import { updateCommoidtySaleStatus } from '@/controllers/commodity';
 const router = express.Router();
 
 router.post('/order', (req, res) => {
+  if (!req.session?.userName) {
+    return res.status(401).send({ status: 0, data: { msg: '未登录' } });
+  }
   const { commodityId, receive, buyerId, sellerId, evaluate } = req.body;
   if (!(commodityId && receive && buyerId && sellerId)) {
     return res.status(400).send({ status: 0, data: { msg: '参数错误' } });
