@@ -13,6 +13,9 @@ router.get('/balance/:id', (req, res) => {
 });
 
 router.post('/balance', (req, res) => {
+  if (!req.session?.userName) {
+    return res.status(401).send({ status: 0, data: { msg: '未登录' } });
+  }
   const { userId, amount } = req.body;
   if (!(userId && amount)) {
     return res.status(400).send({ status: 0, data: { msg: '参数错误' } });

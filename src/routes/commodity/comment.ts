@@ -6,6 +6,9 @@ const router = express.Router();
 
 //更新评论
 router.post('/comment', (req, res) => {
+  if (!req.session?.userName) {
+    return res.status(401).send({ status: 0, data: { msg: '未登录' } });
+  }
   const body = req.body;
   getCommentApiCollections(body)
     .then((data) => res.send({ status: 1, data }))
