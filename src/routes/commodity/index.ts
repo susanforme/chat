@@ -3,6 +3,9 @@ import kind from './kind';
 import comment from './comment';
 import info from './info';
 import order from './order';
+import classification from './classification';
+import recommend from './recommend';
+import search from './search';
 
 const router = express.Router();
 
@@ -17,5 +20,14 @@ router.use(info);
 
 //订单
 router.use(order);
+
+//根据分类返回商品
+router.use(classification);
+
+//推荐
+router.use(recommend);
+
+//搜索
+router.use(search);
 
 export default router;

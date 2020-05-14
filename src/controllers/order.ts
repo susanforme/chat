@@ -1,6 +1,8 @@
 import Order from '@/models/order';
 
-//提交订单
+/**
+ *提交订单
+ */
 export async function insertOrder(uploadData: UploadMsg) {
   const {
     commodityId: commodity,
@@ -14,7 +16,9 @@ export async function insertOrder(uploadData: UploadMsg) {
   return data;
 }
 
-//根据订单id查询商品
+/**
+ *根据订单id查询商品
+ */
 export async function queryOrderByOrderId(id: string) {
   const data = await Order.findById(id);
   if (!data) {
@@ -23,16 +27,33 @@ export async function queryOrderByOrderId(id: string) {
   return data;
 }
 
-//根据卖家id计数
+/**
+ *根据卖家id计数
+ */
 export async function queryOrderCountBySellerId(id: string) {
   const count = await Order.countDocuments({ sellerId: id });
   return count;
 }
 
-//根据买家id计数
+/**
+ *根据买家id计数
+ */
 export async function queryOrderCountByBuyerId(id: string) {
   const count = await Order.countDocuments({ buyerId: id });
   return count;
+}
+
+/**
+ * 根据卖家id查询对卖家的评价
+ */
+export async function queryEvaluateBySellId(id: string) {
+  const data = await Order.find({ sellerId: id }).populate('buyerId');
+  const body = data.map((v) => {
+    const { createTime, evaluate } = v;
+    const { userName, headImg } = v.buyerId;
+    return { createTime, evaluate, user: { userName, headImg } };
+  });
+  return body;
 }
 
 interface UploadMsg {
