@@ -24,6 +24,9 @@ export function queryOrderByOrderId(id: string, callback: Function) {
     if (err) {
       return callback({ status: 0, data: { msg: '服务器内部错误' } });
     }
+    if (!data) {
+      return callback({ status: 0, data: { msg: '查询为空' } });
+    }
     callback(null, data);
   });
 }

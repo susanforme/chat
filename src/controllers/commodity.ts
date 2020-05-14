@@ -19,6 +19,9 @@ export function queryCommodity(commodityId: string, callback: Function) {
       if (err) {
         return callback({ status: 0, data: { msg: '服务器错误' } });
       }
+      if (!data) {
+        return callback({ status: 0, data: { msg: '查询为空' } });
+      }
       callback(null, data);
     });
 }
@@ -42,6 +45,9 @@ export function updateCommoidtyComment(
         if (err) {
           return callback({ status: 0, data: { msg: '服务器错误' } });
         }
+        if (!data) {
+          return callback({ status: 0, data: { msg: '查询为空' } });
+        }
         callback(null, data);
       }
     );
@@ -56,6 +62,9 @@ export function updateCommoidtySaleStatus(
   Commodity.findByIdAndUpdate(commodityId, { isSale: true }, (err, data) => {
     if (err) {
       return callback({ status: 0, data: { msg: '服务器错误' } });
+    }
+    if (!data) {
+      return callback({ status: 0, data: { msg: '查询为空' } });
     }
     callback(null, data);
   });

@@ -30,6 +30,9 @@ export function findByIdUser(id: string, callback: Function) {
     if (err) {
       return callback({ status: 0, data: { msg: '服务器内部错误' } });
     }
+    if (!res) {
+      return callback({ status: 0, data: { msg: '查询为空' } });
+    }
     callback(null, res);
   });
 }
