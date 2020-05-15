@@ -29,7 +29,9 @@ function chat(io: socket.Server) {
         .catch(() => console.log(`roomId 为${roomId}的聊天记录保存失败`));
     });
     socket.on('disconnect', () => {
-      // console.log('a clent disconnect');
+      console.log(
+        `username 为${socket.handshake.session?.userName} 的客户端已经断开`
+      );
     });
   });
 }

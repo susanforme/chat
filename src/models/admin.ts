@@ -22,6 +22,10 @@ const AdminSchema = new Schema({
     type: String,
     required: true,
   },
+  token: {
+    type: String,
+    required: true,
+  },
 });
 const Admin = mongoose.model<IAdmin>('Admin', AdminSchema);
 
@@ -32,4 +36,5 @@ interface IAdmin extends mongoose.Document {
   userName: string;
   password: string;
   headImg: string;
+  token: string;
 }
