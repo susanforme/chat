@@ -5,6 +5,7 @@ import upload from './upload';
 import chat from './chat';
 import commodity from './commodity';
 import manage from './manage';
+import home from './home';
 
 const router = express.Router();
 
@@ -19,6 +20,9 @@ router.use('/chat', chat);
 
 //商品
 router.use('/commodity', commodity);
+
+//以/开头
+router.use(home);
 
 //后台相关api
 router.use('/manage', manage);

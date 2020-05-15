@@ -4,6 +4,16 @@ import history from './history';
 
 const router = express.Router();
 
+//敏感操作鉴权
+router.use((req, res, next) => {
+  if (!req.session?.userName) {
+    return res
+      .status(403)
+      .send({ status: 0, data: { msg: '无权限请登录后再尝试' } });
+  }
+  next();
+});
+
 //获取聊天列表
 router.use(msgList);
 

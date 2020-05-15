@@ -11,12 +11,14 @@ const CommentSchema = new Schema({
     default: new Date().toLocaleString(), //不传入创建时间的默认方法
   },
   userId: {
-    type: String,
     required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
   commodityId: {
-    type: String,
     required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'Commodity',
   },
   comment: {
     type: String,
@@ -29,7 +31,7 @@ export default Comment;
 
 interface IComment extends mongoose.Document {
   createTime: string;
-  userId: string;
+  userId: any;
   commodityId: string;
   comment: string;
 }
