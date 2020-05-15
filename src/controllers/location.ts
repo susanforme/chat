@@ -1,7 +1,9 @@
 import Location from '@/models/location';
 import mongoose from 'mongoose';
 
-//需要判断cookie是否存在
+/**
+ * 插入或更新地址
+ */
 export async function updateLocation(uploadData: uploadLocation) {
   const { area, name, phoneNum } = uploadData;
   const data = await Location.findOneAndUpdate(
@@ -16,13 +18,19 @@ export async function updateLocation(uploadData: uploadLocation) {
   return data;
 }
 
-//请求地址
+/**
+ * 查询地址
+ */
 export async function queryLocation(user: string) {
   const data = await Location.findOne({ user }, 'information');
   return data;
 }
 
-//删除单个地址
+/**
+ * 删除单个地址
+ * @param user
+ * @param position
+ */
 export async function deleteLocation(user: string, position: string) {
   await Location.findOneAndUpdate(
     { user },

@@ -1,6 +1,10 @@
 import Room from '@/models/room';
 import Record from '@/models/record';
 
+/**
+ * 新建房间或直接插入聊天记录
+ * @param uploadData
+ */
 export async function updateRoom(uploadData: uploadMsg) {
   const { roomId, send, receive, msg } = uploadData;
   const record = new Record({ roomId, send, receive, msg });
@@ -13,6 +17,10 @@ export async function updateRoom(uploadData: uploadMsg) {
   return;
 }
 
+/**
+ * 根据id查询聊天列表
+ * @param id
+ */
 export async function queryPersonalChatList(id: string) {
   const data = await Room.find({ users: id }, 'users').populate('users', {
     headImg: 1,
@@ -25,6 +33,10 @@ export async function queryPersonalChatList(id: string) {
   return body;
 }
 
+/**
+ * 查询两个人之间的历史聊天记录
+ * @param roomId
+ */
 export async function queryPersonalHistoryChat(roomId: string) {
   const data = await Record.find({ roomId })
     .populate('send', { userName: 1, id: 1, headImg: 1 })

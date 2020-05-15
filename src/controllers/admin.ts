@@ -37,6 +37,17 @@ export async function queryAdminAccount(body: LoginAdminBody) {
   return data;
 }
 
+/**
+ * 通过用户名查询
+ */
+export async function queryAdminByUserName(userName: string) {
+  const data = await Admin.findOne({ userName });
+  if (!data) {
+    throw new Error('不存在该用户');
+  }
+  return;
+}
+
 interface RegisterAdminBody {
   userName: string;
   password: string;
