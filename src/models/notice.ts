@@ -14,7 +14,7 @@ const NoticeSchema = new Schema({
     type: String,
     required: true,
   },
-  img: {
+  imgPath: {
     type: String,
   },
 });
@@ -25,5 +25,5 @@ export default Notice;
 interface INotice extends mongoose.Document {
   createTime: string;
   content: string;
-  img: string;
+  imgPath: string;
 }

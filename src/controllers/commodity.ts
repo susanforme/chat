@@ -160,6 +160,58 @@ export async function queryCommodityByName(name: string) {
   return body;
 }
 
+//以下为后台接口
+
+/**
+ * 分页查询商品数据
+ * @param id
+ */
+export async function queryPagetion(id: string) {
+  if (id === '1') {
+    const data = await Commodity.find({})
+      .populate('owner', { userName: 1, _id: 1 })
+      .populate('comment', { comment: 1, createTime: 1, userId: 1 })
+      .sort({ _id: 1 })
+      .limit(10);
+    return data;
+  }
+  const data = await Commodity.find({ _id: { $gt: id } })
+    .populate('owner', { userName: 1, _id: 1 })
+    .populate('comment', { comment: 1, createTime: 1, userId: 1 })
+    .sort({ _id: 1 })
+    .limit(10);
+  if (data.length === 0) {
+    throw new Error('当前页不存在');
+  }
+  return data;
+}
+
+/**
+ * 删除商品
+ * @param id
+ */
+export async function deleteCommodity(id: string) {
+  const data = await Commodity.findByIdAndDelete(id);
+  if (!data) {
+    throw new Error('删除数据不存在');
+  }
+  return;
+}
+
+/**
+ * 删除评论,注意只是删除商品表中的评论,
+ * @params id 商品id
+ */
+export async function deleteCommodityComment(
+  commodityId: string,
+  commentId: string
+) {
+  await Commodity.findByIdAndUpdate(commodityId, {
+    $pull: { comment: mongoose.Types.ObjectId(commentId) },
+  });
+  return;
+}
+
 interface uploadMsg {
   name: string;
   kind: string;

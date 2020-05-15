@@ -2,7 +2,13 @@ import express from 'express';
 import kind from './kind';
 import register from './register';
 import login from './login';
+import notice from './notice';
 import { queryAdminByUserName } from '@/controllers/admin';
+import comment from './comment';
+import commodity from './commodity';
+import room from './room';
+import record from './record';
+import user from './user';
 
 const router = express.Router();
 
@@ -20,7 +26,9 @@ router.use((req, res, next) => {
         console.log(
           `管理员${
             req.session?.userName
-          } 在${new Date().toLocaleString()}登录并请求了${req.url}`
+          } 在${new Date().toLocaleString()}请求了${req.url},操作是${
+            req.method
+          },请求体是${JSON.stringify(req.body || {})}`
         );
         next();
       })
@@ -41,5 +49,23 @@ router.use(register);
 
 //登录
 router.use(login);
+
+//公告
+router.use(notice);
+
+//评论
+router.use(comment);
+
+//商品
+router.use(commodity);
+
+//房间
+router.use(room);
+
+//聊天记录
+router.use(record);
+
+//用户
+router.use(user);
 
 export default router;

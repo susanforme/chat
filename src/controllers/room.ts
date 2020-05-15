@@ -1,5 +1,6 @@
 import Room from '@/models/room';
 import Record from '@/models/record';
+import mongoose from 'mongoose';
 
 /**
  * 新建房间或直接插入聊天记录
@@ -46,6 +47,50 @@ export async function queryPersonalHistoryChat(roomId: string) {
     return { createTime, msg, send, receive };
   });
   return body;
+}
+
+//后台所需
+
+/**
+ * 分页查询
+ */
+export async function queryPagtionRoom(id: string) {
+  if (id === '1') {
+    const data = await Room.find({})
+      .populate('users', { userName: 1, _id: 1 })
+      .sort({ _id: 1 })
+      .limit(10);
+    return data;
+  }
+  const data = await Room.find({ _id: { $gt: id } })
+    .populate('users', { userName: 1, _id: 1 })
+    .sort({ _id: 1 })
+    .limit(10);
+  if (data.length === 0) {
+    throw new Error('当前页不存在');
+  }
+  return data;
+}
+
+/**
+ * 删除该房间
+ */
+export async function deleteRoom(id: string) {
+  const data = await Room.findOneAndDelete({ roomId: id });
+  if (!data) {
+    throw new Error('该房间不存在');
+  }
+  return;
+}
+
+/**
+ * 删除该房间下的一条聊天记录
+ */
+export async function deleteRoomRecord(roomId: string, recordId: string) {
+  await Room.findOneAndUpdate(
+    { roomId },
+    { $pull: { record: mongoose.Types.ObjectId(recordId) } }
+  );
 }
 
 interface uploadMsg {

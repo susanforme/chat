@@ -68,6 +68,51 @@ export async function updateBalanceById(id: string, amount: number) {
   return;
 }
 
+/**
+ * 后台分页查询用户
+ * @param page
+ */
+export async function queryPagtionUser(id: string) {
+  //速度是skip的10倍
+  if (id === '1') {
+    const data = await User.find({}, [
+      'userName',
+      'createTime',
+      'balance',
+      '_id',
+      'password',
+    ])
+      .sort({ _id: 1 })
+      .limit(10);
+    return data;
+  }
+  const data = await User.find({ _id: { $gt: id } }, [
+    'userName',
+    'createTime',
+    'balance',
+    '_id',
+    'password',
+  ])
+    .sort({ _id: 1 })
+    .limit(10);
+  if (data.length === 0) {
+    throw new Error('当前页不存在');
+  }
+  return data;
+}
+
+/**
+ * 删除用户
+ * @param id
+ */
+export async function deleteUser(id: string) {
+  const data = await User.findByIdAndDelete(id);
+  if (!data) {
+    throw new Error('删除用户错误,该用户不存在');
+  }
+  return;
+}
+
 type UserMsg = {
   userName: string;
   password?: string;
