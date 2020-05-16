@@ -27,10 +27,26 @@ router.get('/profile/:id', (req, res) => {
 export default router;
 
 async function getProfileApiCollections(id: string) {
-  const userData = await findByIdUser(id);
-  const { userName, headImg } = userData;
-  const buyCount = await queryOrderCountByBuyerId(id);
-  const sellCount = await queryOrderCountBySellerId(id);
-  const totalCount = await queryByOwnerIdGetCommodityCount(id);
-  return { userName, headImg, buyCount, sellCount, totalCount };
+  // const userData = await findByIdUser(id);
+  // const { userName, headImg } = userData;
+  // const buyCount = await queryOrderCountByBuyerId(id);
+  // const sellCount = await queryOrderCountBySellerId(id);
+  // const totalCount = await queryByOwnerIdGetCommodityCount(id);
+  // return { userName, headImg, buyCount, sellCount, totalCount };
+
+  // 优化为并发
+  const data = await Promise.all([
+    findByIdUser(id),
+    queryOrderCountByBuyerId(id),
+    queryOrderCountBySellerId(id),
+    queryByOwnerIdGetCommodityCount(id),
+  ]);
+  const { userName, headImg } = data[0];
+  return {
+    userName,
+    headImg,
+    buyCount: data[1],
+    sellCount: data[2],
+    totalCount: data[3],
+  };
 }

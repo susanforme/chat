@@ -20,7 +20,7 @@ router.post('/balance', (req, res) => {
   if (!(userId && amount)) {
     return res.status(400).send({ status: 0, data: { msg: '参数错误' } });
   }
-  updateBalanceById(userId, amount)
+  updateBalanceById(userId, Number(amount))
     .then(() => res.send({ status: 1 }))
     .catch((err) =>
       res.status(500).send({ status: 0, data: { msg: err.message } })
