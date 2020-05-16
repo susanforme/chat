@@ -22,11 +22,21 @@ router.get('/personal/:id', (req, res) => {
 export default router;
 
 async function getPersonalApiCollections(id: string) {
-  const commodityData = await queryByOwnerGetCommodity(id);
-  const commodity = commodityData.map((v) => {
+  // const commodityData = await queryByOwnerGetCommodity(id);
+  // const commodity = commodityData.map((v) => {
+  //   const { price, _id, description, imgPath } = v;
+  //   return { price, _id, description, imgPath };
+  // });
+  // const evaluate = await queryEvaluateBySellId(id);
+  // return { commodity, evaluate };
+  //优化为promise并行
+  const data = await Promise.all([
+    queryByOwnerGetCommodity(id),
+    queryEvaluateBySellId(id),
+  ]);
+  const commodity = data[0].map((v) => {
     const { price, _id, description, imgPath } = v;
     return { price, _id, description, imgPath };
   });
-  const evaluate = await queryEvaluateBySellId(id);
-  return { commodity, evaluate };
+  return { commodity, evaluate: data[1] };
 }

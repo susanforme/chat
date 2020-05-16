@@ -22,9 +22,14 @@ router.post('/order', (req, res) => {
 export default router;
 
 async function getOrderApiCollections(body: RequestBody) {
-  await updateCommoidtySaleStatus(body.commodityId);
-  const data = await insertOrder(body);
-  return data;
+  // 优化为并行
+  const data = await Promise.all([
+    updateCommoidtySaleStatus(body.commodityId),
+    insertOrder(body),
+  ]);
+  // await updateCommoidtySaleStatus(body.commodityId);
+  // const data = await insertOrder(body);
+  return data[1];
 }
 
 interface RequestBody {

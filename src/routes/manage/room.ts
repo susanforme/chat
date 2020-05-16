@@ -25,6 +25,5 @@ router.delete('/room/:id', (req, res) => {
 export default router;
 
 async function deleteRoomApiColletions(id: string) {
-  await deleteRoom(id);
-  await deleteCommentByRoomId(id);
+  await Promise.all([deleteRoom(id), deleteCommentByRoomId(id)]);
 }
