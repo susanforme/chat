@@ -1,8 +1,17 @@
 import express from 'express';
-import { insertOrder } from '@/controllers/order';
+import { insertOrder, queryOrderByBuyId } from '@/controllers/order';
 import { updateCommoidtySaleStatus } from '@/controllers/commodity';
 
 const router = express.Router();
+
+router.get('/order/:id', (req, res) => {
+  const id = req.params.id;
+  queryOrderByBuyId(id)
+    .then((data) => res.send({ status: 1, data }))
+    .catch((err) =>
+      res.status(500).send({ status: 0, data: { msg: err.message } })
+    );
+});
 
 router.post('/order', (req, res) => {
   if (!req.session?.userName) {
