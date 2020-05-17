@@ -54,7 +54,7 @@ export async function queryPersonalHistoryChat(roomId: string) {
 /**
  * 分页查询
  */
-export async function queryPagtionRoom(id: string) {
+export async function queryPagtionRoom(id: string, isNext: boolean) {
   if (id === '1') {
     const data = await Room.find({})
       .populate('users', { userName: 1, _id: 1 })
@@ -62,7 +62,13 @@ export async function queryPagtionRoom(id: string) {
       .limit(10);
     return data;
   }
-  const data = await Room.find({ _id: { $gt: id } })
+  let method;
+  if (isNext) {
+    method = { $gt: id };
+  } else {
+    method = { $lt: id };
+  }
+  const data = await Room.find({ _id: method })
     .populate('users', { userName: 1, _id: 1 })
     .sort({ _id: 1 })
     .limit(10);

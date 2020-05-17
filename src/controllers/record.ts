@@ -5,14 +5,18 @@ import Record from '@/models/record';
 /**
  * 分页查询聊天记录
  */
-export async function queryPagationRecord(id: string) {
+export async function queryPagationRecord(id: string, isNext: boolean) {
   if (id === '1') {
     const data = await Record.find({}).sort({ _id: 1 }).limit(10);
     return data;
   }
-  const data = await Record.find({ _id: { $gt: id } })
-    .sort({ _id: 1 })
-    .limit(10);
+  let method;
+  if (isNext) {
+    method = { $gt: id };
+  } else {
+    method = { $lt: id };
+  }
+  const data = await Record.find({ _id: method }).sort({ _id: 1 }).limit(10);
   if (data.length === 0) {
     throw new Error('当前页不存在');
   }

@@ -72,7 +72,7 @@ export async function updateBalanceById(id: string, amount: number) {
  * 后台分页查询用户
  * @param page
  */
-export async function queryPagtionUser(id: string) {
+export async function queryPagtionUser(id: string, isNext: boolean) {
   //速度是skip的10倍
   if (id === '1') {
     const data = await User.find({}, [
@@ -86,7 +86,13 @@ export async function queryPagtionUser(id: string) {
       .limit(10);
     return data;
   }
-  const data = await User.find({ _id: { $gt: id } }, [
+  let method;
+  if (isNext) {
+    method = { $gt: id };
+  } else {
+    method = { $lt: id };
+  }
+  const data = await User.find({ _id: method }, [
     'userName',
     'createTime',
     'balance',

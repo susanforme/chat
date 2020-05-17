@@ -16,7 +16,7 @@ export async function insertComment(uploadData: UploadData) {
  * 分页查询id
  * @param id
  */
-export async function queryPagtionComment(id: string) {
+export async function queryPagtionComment(id: string, isNext: boolean) {
   //速度是skip的10倍
   if (id === '1') {
     const data = await Comment.find({})
@@ -26,7 +26,13 @@ export async function queryPagtionComment(id: string) {
       .limit(10);
     return data;
   }
-  const data = await Comment.find({ _id: { $gt: id } })
+  let method;
+  if (isNext) {
+    method = { $gt: id };
+  } else {
+    method = { $lt: id };
+  }
+  const data = await Comment.find({ _id: method })
     .populate('userId', { userName: 1 })
     .populate('commodityId', { name: 1, _id: 1, createTime: 1 })
     .sort({ _id: 1 })
