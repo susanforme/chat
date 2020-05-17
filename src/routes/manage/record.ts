@@ -9,7 +9,7 @@ router.get('/record/:id', (req, res) => {
   queryPagationRecord(id)
     .then((data) => res.send({ status: 1, data }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 
@@ -18,7 +18,7 @@ router.delete('/record/:id', (req, res) => {
   deleteRecordApiColletions(id)
     .then(() => res.send({ status: 1, data: { msg: '删除成功' } }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 

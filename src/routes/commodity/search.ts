@@ -8,7 +8,7 @@ router.get('/search/:name', (req, res) => {
   queryCommodityByName(name)
     .then((data) => res.send({ status: 1, data }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 

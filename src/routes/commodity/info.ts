@@ -9,7 +9,7 @@ router.post('/info', (req, res) => {
   insertCommodity(body)
     .then((data) => res.send({ status: 1, data }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 
@@ -20,7 +20,7 @@ router.get('/info/:id', (req, res) => {
     return queryCommodity(id)
       .then((data) => res.send({ status: 1, data }))
       .catch((err) =>
-        res.status(500).send({ status: 0, data: { msg: err.message } })
+        res.status(400).send({ status: 0, data: { msg: err.message } })
       );
   }
   res.status(400).send({ status: 0, data: { msg: '参数错误' } });

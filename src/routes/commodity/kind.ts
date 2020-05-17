@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/kind', (req, res) => {
   queryAllKind()
     .then((data) => res.send({ status: 1, data }))
-    .catch(() => res.status(500).send({ status: 0 }));
+    .catch(() => res.status(400).send({ status: 0 }));
 });
 
 export default router;

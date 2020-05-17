@@ -9,7 +9,7 @@ router.get('/order/:id', (req, res) => {
   queryOrderByBuyId(id)
     .then((data) => res.send({ status: 1, data }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 
@@ -24,7 +24,7 @@ router.post('/order', (req, res) => {
   getOrderApiCollections({ commodityId, receive, buyerId, sellerId, evaluate })
     .then((data) => res.send({ status: 1, data }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 

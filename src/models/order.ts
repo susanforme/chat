@@ -35,6 +35,10 @@ const OrderSchema = new Schema({
     type: String,
     default: '此用户未填写评价',
   },
+  score: {
+    type: Number,
+    default: 5,
+  },
 });
 const Order = mongoose.model<IOrder>('Order', OrderSchema);
 

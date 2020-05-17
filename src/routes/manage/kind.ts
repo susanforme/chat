@@ -10,7 +10,7 @@ router.post('/kind', (req, res) => {
   }
   insertKind(kindName, imgPath)
     .then((data) => res.send(data))
-    .catch(() => res.status(500).send({ status: 0 }));
+    .catch(() => res.status(400).send({ status: 0 }));
 });
 
 router.delete('/kind/:kindName', (req, res) => {
@@ -18,7 +18,7 @@ router.delete('/kind/:kindName', (req, res) => {
   deleteKind(kindName)
     .then(() => res.send({ status: 1 }))
     .catch(() =>
-      res.status(500).send({ status: 0, data: { msg: '删除失败' } })
+      res.status(400).send({ status: 0, data: { msg: '删除失败' } })
     );
 });
 
@@ -26,7 +26,7 @@ router.get('/kind', (req, res) => {
   queryAllKind()
     .then((data) => res.send({ status: 1, data }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 
