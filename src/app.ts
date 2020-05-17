@@ -6,6 +6,8 @@ import chat from './chat';
 import setConfig from './config';
 import path from 'path';
 import fs from 'fs';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 const app = express();
 const cert = fs.readFileSync(path.join(__dirname, '../cert/cert.pem'));
@@ -16,12 +18,24 @@ const server = https.createServer(options, app);
 const io = socket(server);
 const port = 5050;
 
-//配置文件
-setConfig(app);
+const PATH_ENV =
+  dotenv.config({ path: path.join(process.cwd(), '/bin/.env') }).parsed || {};
 
-//聊天组件
-chat(io);
+mongoose
+  .connect(`mongodb://localhost:27017/sweet`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    user: PATH_ENV.DATA_BASE_SWEET_ACCOUNT,
+    pass: PATH_ENV.DATA_BASE_SWEET_PASSWORD,
+  })
+  .then(() => {
+    //配置文件
+    setConfig(app);
 
-server.listen(port, () =>
-  console.log(`server is running at https://127.0.0.1:${port}`)
-);
+    //聊天组件
+    chat(io);
+
+    server.listen(port, () =>
+      console.log(`server is running at https://127.0.0.1:${port}`)
+    );
+  });

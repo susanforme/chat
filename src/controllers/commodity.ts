@@ -166,7 +166,7 @@ export async function queryCommodityByName(name: string) {
  * 分页查询商品数据
  * @param id
  */
-export async function queryPagetion(id: string) {
+export async function queryPagetion(id: string, isNext: boolean) {
   if (id === '1') {
     const data = await Commodity.find({})
       .populate('owner', { userName: 1, _id: 1 })
@@ -175,7 +175,13 @@ export async function queryPagetion(id: string) {
       .limit(10);
     return data;
   }
-  const data = await Commodity.find({ _id: { $gt: id } })
+  let method;
+  if (isNext) {
+    method = { $gt: id };
+  } else {
+    method = { $lt: id };
+  }
+  const data = await Commodity.find({ _id: method })
     .populate('owner', { userName: 1, _id: 1 })
     .populate('comment', { comment: 1, createTime: 1, userId: 1 })
     .sort({ _id: 1 })

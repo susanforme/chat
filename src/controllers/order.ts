@@ -56,6 +56,14 @@ export async function queryEvaluateBySellId(id: string) {
   return body;
 }
 
+/**
+ * 根据买家id查询订单
+ */
+export async function queryOrderByBuyId(id: string) {
+  const data = await Order.find({ buyerId: id });
+  return data;
+}
+
 interface UploadMsg {
   commodityId: string;
   receive: {

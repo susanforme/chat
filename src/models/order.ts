@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://localhost:27017/chat', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
   createTime: {
@@ -38,6 +34,10 @@ const OrderSchema = new Schema({
   evaluate: {
     type: String,
     default: '此用户未填写评价',
+  },
+  score: {
+    type: Number,
+    default: 5,
   },
 });
 const Order = mongoose.model<IOrder>('Order', OrderSchema);

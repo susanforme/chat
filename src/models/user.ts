@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://localhost:27017/chat', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   userName: {

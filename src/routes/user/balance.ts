@@ -8,7 +8,7 @@ router.get('/balance/:id', (req, res) => {
   queryByIdGetBalance(id)
     .then((data) => res.send({ status: 1, data }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 
@@ -23,7 +23,7 @@ router.post('/balance', (req, res) => {
   updateBalanceById(userId, Number(amount))
     .then(() => res.send({ status: 1 }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 

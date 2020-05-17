@@ -15,10 +15,10 @@ router.post('/location', (req, res) => {
     return updateLocation(body)
       .then((data) => res.send({ status: 1, data }))
       .catch((err) =>
-        res.status(500).send({ status: 0, data: { msg: err.message } })
+        res.status(400).send({ status: 0, data: { msg: err.message } })
       );
   }
-  res.status(500).send({ status: 0, data: { msg: '参数错误' } });
+  res.status(400).send({ status: 0, data: { msg: '参数错误' } });
 });
 
 //请求地址
@@ -30,7 +30,7 @@ router.get('/location/:id', (req, res) => {
   queryLocation(id)
     .then((data) => res.send({ status: 1, data: data?.information }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 
@@ -43,7 +43,7 @@ router.delete('/location/:id', (req, res) => {
   deleteLocation(user, position)
     .then(() => res.send({ status: 1 }))
     .catch((err) =>
-      res.status(500).send({ status: 0, data: { msg: err.message } })
+      res.status(400).send({ status: 0, data: { msg: err.message } })
     );
 });
 

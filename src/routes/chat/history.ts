@@ -12,7 +12,7 @@ router.get('/history/:id', (req, res) => {
   queryPersonalHistoryChat(roomId)
     .then((data) => res.send({ status: 1, data }))
     .catch(() =>
-      res.status(500).send({ status: 0, data: { msg: '服务器错误' } })
+      res.status(400).send({ status: 0, data: { msg: '服务器错误' } })
     );
 });
 
