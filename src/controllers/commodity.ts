@@ -14,11 +14,39 @@ export async function insertCommodity(uploadData: uploadMsg) {
  *  请求单个商品页面数据
  */
 export async function queryCommodity(commodityId: string) {
-  const data = Commodity.findById(commodityId).populate('comment');
+  const data = await Commodity.findById(commodityId)
+    .populate('comment')
+    .populate('owner');
   if (!data) {
     throw new Error('商品查询为空');
   }
-  return data;
+  const {
+    createTime,
+    imgPath,
+    isSale,
+    _id,
+    comment,
+    kind,
+    price,
+    description,
+  } = data;
+  const { _id: userId, headImg, userName } = data.owner;
+  const body = {
+    createTime,
+    imgPath,
+    isSale,
+    _id,
+    comment,
+    kind,
+    price,
+    description,
+    user: {
+      _id: userId,
+      headImg,
+      userName,
+    },
+  };
+  return body;
 }
 
 /**
@@ -127,7 +155,7 @@ export async function queryByOwnerGetCommodity(id: string) {
 }
 
 /**
- * 模糊查询商品根据商品名字
+ * 模糊查询商品根据商品关键字
  */
 export async function queryCommodityByName(name: string) {
   const regx = new RegExp(name, 'i');
@@ -135,7 +163,7 @@ export async function queryCommodityByName(name: string) {
     {
       $sample: { size: 20 },
     },
-    { $match: { name: { $regex: regx } } },
+    { $match: { description: { $regex: regx } } },
     {
       $lookup: {
         from: 'users',
@@ -147,7 +175,7 @@ export async function queryCommodityByName(name: string) {
   ]);
   const body = data.map((v) => {
     const { price, imgPath, description, name, _id } = v;
-    const { userName, headImg } = v.owner;
+    const { userName, headImg } = v.owner[0];
     return {
       price,
       imgPath,
@@ -219,7 +247,6 @@ export async function deleteCommodityComment(
 }
 
 interface uploadMsg {
-  name: string;
   kind: string;
   price: number;
   imgPath: string[];

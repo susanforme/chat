@@ -5,6 +5,9 @@ const router = express.Router();
 
 //插入商品信息
 router.post('/info', (req, res) => {
+  if (!req.session?.userName) {
+    return res.status(401).send({ status: 0, data: { msg: '未登录' } });
+  }
   const body = req.body;
   insertCommodity(body)
     .then((data) => res.send({ status: 1, data }))
