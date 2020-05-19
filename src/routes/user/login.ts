@@ -23,9 +23,9 @@ router.post('/login', (req, res) => {
         res.send({ status: 1, data });
       }
     })
-    .catch((err) =>
-      res.status(400).send({ status: 0, data: { msg: err.message } })
-    );
+    .catch((err) => {
+      res.status(400).send({ status: 0, data: { msg: err.message } });
+    });
 });
 
 export default router;

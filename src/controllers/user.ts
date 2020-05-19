@@ -36,7 +36,7 @@ export async function findByIdUser(id: string) {
  * @param body
  */
 export async function findByNameUser(body: UserMsg) {
-  const data = User.findOne(body, ['userName', 'headImg']);
+  const data = await User.findOne(body, ['userName', 'headImg']);
   if (!data) {
     throw new Error('账号或者密码错误');
   }

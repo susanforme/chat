@@ -9,6 +9,7 @@ import commodity from './commodity';
 import room from './room';
 import record from './record';
 import user from './user';
+import carousel from './carousel';
 
 const router = express.Router();
 
@@ -67,5 +68,8 @@ router.use(record);
 
 //用户
 router.use(user);
+
+//轮播
+router.use(carousel);
 
 export default router;

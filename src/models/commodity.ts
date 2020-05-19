@@ -6,10 +6,6 @@ const CommoditySchema = new Schema({
     type: String,
     default: new Date().toLocaleString(), //不传入创建时间的默认方法
   },
-  name: {
-    type: String,
-    required: true,
-  },
   kind: {
     type: Schema.Types.ObjectId,
     ref: 'Kind',
@@ -40,7 +36,6 @@ export default Commodity;
 
 interface ICommodity extends mongoose.Document {
   createTime: string;
-  name: string;
   kind: any;
   price: number;
   imgPath: string[];
