@@ -15,7 +15,10 @@ export async function insertCommodity(uploadData: uploadMsg) {
  */
 export async function queryCommodity(commodityId: string) {
   const data = await Commodity.findById(commodityId)
-    .populate('comment')
+    .populate({
+      path: 'comment',
+      populate: { path: 'userId', select: { userName: 1, _id: 1, headImg: 1 } },
+    })
     .populate('owner');
   if (!data) {
     throw new Error('商品查询为空');
