@@ -2,6 +2,7 @@ import path from 'path';
 import process from 'process';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import SHA512 from 'crypto-js/sha512';
 
 const COS = require('cos-nodejs-sdk-v5');
 const ID_KEY = dotenv.config({ path: path.join(process.cwd(), '/bin/.env') })
@@ -18,8 +19,10 @@ function cosUpload(options: Options, callback: Function) {
     {
       Bucket: 'static-resource-1256396014' /* 必须 */,
       Region: 'ap-nanjing' /* 必须 */,
-      Key: `/img/public/${new Date().toLocaleDateString()}/${
-        fileName + hash
+      Key: `/img/public/${new Date()
+        .toLocaleDateString()
+        .replace(/\//g, '.')}/${
+        fileName + SHA512(new Date().toUTCString()).toString()
       }${extname}` /* 必须 */,
       StorageClass: 'STANDARD',
       Body: fs.createReadStream(filePath), // 上传文件对象
@@ -31,8 +34,8 @@ function cosUpload(options: Options, callback: Function) {
       return callback(null, {
         status: 1,
         data: {
-          src: `${new Date().toLocaleDateString()}/${
-            fileName + hash
+          src: `${new Date().toLocaleDateString().replace(/\//g, '.')}/${
+            fileName + SHA512(new Date().toUTCString()).toString()
           }${extname}`,
         },
       });
