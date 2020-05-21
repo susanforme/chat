@@ -20,6 +20,7 @@ export async function queryCarousel() {
 interface UploadData {
   url?: string;
   commodityId?: string;
+  imgPath: string;
 }
 
 /**

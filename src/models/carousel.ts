@@ -12,6 +12,10 @@ const CarouselSchema = new Schema({
   commodityId: {
     type: String,
   },
+  imgPath: {
+    type: String,
+    required: true,
+  },
 });
 const Carousel = mongoose.model<ICarousel>('Carousel', CarouselSchema);
 
@@ -21,4 +25,5 @@ interface ICarousel extends mongoose.Document {
   createTime: string;
   url?: string;
   commodityId?: string;
+  imgPath: string;
 }
