@@ -119,6 +119,21 @@ export async function deleteUser(id: string) {
   return;
 }
 
+/**
+ * 更新头像
+ */
+export async function updateUserHeadImg(userId: string, headImg: string) {
+  const data = await User.findByIdAndUpdate(
+    userId,
+    { headImg },
+    { select: { headImg: 1 } }
+  );
+  if (!data) {
+    throw new Error('用户为空');
+  }
+  return data;
+}
+
 type UserMsg = {
   userName: string;
   password?: string;
