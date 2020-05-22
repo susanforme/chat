@@ -15,15 +15,14 @@ const cos = new COS({
 
 function cosUpload(options: Options, callback: Function) {
   const { fileName, hash, extname, filePath } = options;
+  const timeHash = SHA512(new Date().toUTCString()).toString();
   cos.putObject(
     {
       Bucket: 'static-resource-1256396014' /* 必须 */,
       Region: 'ap-nanjing' /* 必须 */,
       Key: `/img/public/${new Date()
         .toLocaleDateString()
-        .replace(/\//g, '.')}/${
-        fileName + SHA512(new Date().toUTCString()).toString()
-      }${extname}` /* 必须 */,
+        .replace(/\//g, '.')}/${fileName + timeHash}${extname}` /* 必须 */,
       StorageClass: 'STANDARD',
       Body: fs.createReadStream(filePath), // 上传文件对象
     },
@@ -35,7 +34,7 @@ function cosUpload(options: Options, callback: Function) {
         status: 1,
         data: {
           src: `${new Date().toLocaleDateString().replace(/\//g, '.')}/${
-            fileName + SHA512(new Date().toUTCString()).toString()
+            fileName + timeHash
           }${extname}`,
         },
       });
