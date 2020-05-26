@@ -1,6 +1,10 @@
 import express from 'express';
 import { insertOrder, queryOrderByBuyId } from '@/controllers/order';
-import { updateCommoidtySaleStatus } from '@/controllers/commodity';
+import {
+  updateCommoidtySaleStatus,
+  queryCommodity,
+} from '@/controllers/commodity';
+import { updateBalanceById } from '@/controllers/user';
 
 const router = express.Router();
 
@@ -21,7 +25,7 @@ router.post('/order', (req, res) => {
   if (!(commodityId && receive && buyerId && sellerId)) {
     return res.status(400).send({ status: 0, data: { msg: '参数错误' } });
   }
-  getOrderApiCollections({ commodityId, receive, buyerId, sellerId, evaluate })
+  postOrderApiCollections({ commodityId, receive, buyerId, sellerId, evaluate })
     .then((data) => res.send({ status: 1, data }))
     .catch((err) =>
       res.status(400).send({ status: 0, data: { msg: err.message } })
@@ -30,14 +34,14 @@ router.post('/order', (req, res) => {
 
 export default router;
 
-async function getOrderApiCollections(body: RequestBody) {
+async function postOrderApiCollections(body: RequestBody) {
   // 优化为并行
+  const { price } = await queryCommodity(body.commodityId);
+  await updateBalanceById(body.buyerId, -price);
   const data = await Promise.all([
     updateCommoidtySaleStatus(body.commodityId),
     insertOrder(body),
   ]);
-  // await updateCommoidtySaleStatus(body.commodityId);
-  // const data = await insertOrder(body);
   return data[1];
 }
 

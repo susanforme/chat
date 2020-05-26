@@ -33,7 +33,12 @@ export async function queryCommodity(commodityId: string) {
     price,
     description,
   } = data;
-  const { _id: userId, headImg, userName } = data.owner;
+  const {
+    _id: userId,
+    headImg,
+    userName,
+    createTime: userCreateTime,
+  } = data.owner;
   const body = {
     createTime,
     imgPath,
@@ -47,6 +52,7 @@ export async function queryCommodity(commodityId: string) {
       _id: userId,
       headImg,
       userName,
+      createTime: userCreateTime,
     },
   };
   return body;
