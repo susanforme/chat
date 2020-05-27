@@ -39,9 +39,7 @@ export async function queryPersonalChatList(id: string) {
  * @param roomId
  */
 export async function queryPersonalHistoryChat(roomId: string) {
-  const data = await Record.find({ roomId })
-    .populate('send', { userName: 1, id: 1, headImg: 1 })
-    .populate('receive', { userName: 1, id: 1, headImg: 1 });
+  const data = await Record.find({ roomId });
   const body = data.map((v) => {
     const { createTime, msg, send, receive } = v;
     return { createTime, msg, send, receive };

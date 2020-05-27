@@ -8,6 +8,7 @@ import location from './location';
 import logout from './logout';
 import balance from './balance';
 import personal from './personal';
+import headimg from './headimg';
 
 const router = express.Router();
 //登录
@@ -36,5 +37,8 @@ router.use(balance);
 
 //个人主页
 router.use(personal);
+
+//toux
+router.use(headimg);
 
 export default router;
