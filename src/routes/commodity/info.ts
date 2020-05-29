@@ -9,6 +9,15 @@ router.post('/info', (req, res) => {
     return res.status(401).send({ status: 0, data: { msg: '未登录' } });
   }
   const body = req.body;
+  const { owner, kind, price, description, imgPath } = body;
+  if (!(owner && kind && price && description && imgPath)) {
+    return res.status(400).send({ status: 0, data: { msg: '参数错误' } });
+  }
+  if (Array.isArray(imgPath) && imgPath.length === 0) {
+    return res
+      .status(400)
+      .send({ status: 0, data: { msg: '至少上传一张图片' } });
+  }
   insertCommodity(body)
     .then((data) => res.send({ status: 1, data }))
     .catch((err) =>

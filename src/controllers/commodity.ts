@@ -105,7 +105,7 @@ export async function queryByKindGetCommodity(id: string) {
         as: 'owner',
       },
     },
-    { $match: { kind: mongoose.Types.ObjectId(id) } },
+    { $match: { kind: mongoose.Types.ObjectId(id), isSale: false } },
   ]);
   const body = data.map((v) => {
     const { price, description, _id, imgPath, name } = v;

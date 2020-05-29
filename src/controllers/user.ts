@@ -59,11 +59,14 @@ export async function queryByIdGetBalance(id: string) {
  */
 export async function updateBalanceById(id: string, amount: number) {
   const data = await User.findById(id, 'balance');
-  if ((data?.balance as number) + amount < 0) {
+  if (!data) {
+    throw new Error('用户不存在');
+  }
+  if (data.balance + amount < 0) {
     throw new Error('余额不足');
   }
   await User.findByIdAndUpdate(id, {
-    balance: (data?.balance as number) + amount,
+    balance: data.balance + amount,
   });
   return;
 }
