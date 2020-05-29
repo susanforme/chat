@@ -17,11 +17,9 @@ const OrderSchema = new Schema({
   },
   deliveryTime: {
     type: String,
-    default: new Date().toLocaleString(),
   },
   receiveTime: {
     type: String,
-    default: new Date().toLocaleString(),
   },
   buyerId: {
     type: Schema.Types.ObjectId,
@@ -33,11 +31,10 @@ const OrderSchema = new Schema({
   },
   evaluate: {
     type: String,
-    default: '此用户未填写评价',
   },
-  score: {
+  status: {
     type: Number,
-    default: 5,
+    default: 0,
   },
 });
 const Order = mongoose.model<IOrder>('Order', OrderSchema);
@@ -52,9 +49,10 @@ interface IOrder extends mongoose.Document {
     name: string;
     area: string;
   };
-  deliveryTime: string;
-  receiveTime: string;
+  deliveryTime?: string;
+  receiveTime?: string;
   sellerId: any;
   buyerId: any;
   evaluate: string;
+  status: 0 | 1 | 2 | 3;
 }

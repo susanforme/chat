@@ -7,6 +7,11 @@ import SHA256 from 'crypto-js/sha256';
 const router = express.Router();
 
 router.post('/img', (req, res) => {
+  if (!req.session?.userName) {
+    return res
+      .status(403)
+      .send({ status: 0, data: { msg: '无权限请登录后再尝试' } });
+  }
   const form = new formidable.IncomingForm();
   form.hash = 'sha256';
   form.parse(req, (err, fields, files) => {
