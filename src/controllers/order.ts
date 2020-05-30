@@ -74,6 +74,7 @@ export async function queryOrderByBuyerId(id: string) {
     .populate('commodity', {
       imgPath: 1,
       price: 1,
+      description: 1,
     });
   return data;
 }
@@ -96,6 +97,7 @@ export async function queryOrderBySellId(id: string) {
     .populate('commodity', {
       imgPath: 1,
       price: 1,
+      description: 1,
     });
   return data;
 }
