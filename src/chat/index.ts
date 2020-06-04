@@ -8,7 +8,8 @@ function chat(io: socket.Server) {
   io.on('connection', (socket) => {
     //session不存在断开连接
     if (!socket.handshake.session?.userName) {
-      socket.disconnect(true);
+      // socket.disconnect(true);
+      console.log(socket.handshake.session?.userName);
     }
     socket.on('chat', (data: uploadMsg) => {
       const userIds = [data.send, data.receive];

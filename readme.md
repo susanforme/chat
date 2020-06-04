@@ -1,4 +1,12 @@
-# a chat application
+# sweet server
+
+## 技术栈
+
++ TypeScript
++ Express
++ Eslint
++ Mongoose
++ Socket.io
 
 ## start
 
@@ -16,12 +24,5 @@ npm run build
 
 ```
 
-## sync git
 
-```shell
-# enter in your branch,then press
 
-#Synchronize the current branch with master
-git rebase master
-
-```
