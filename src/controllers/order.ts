@@ -11,7 +11,14 @@ export async function insertOrder(uploadData: UploadMsg) {
     sellerId,
     evaluate,
   } = uploadData;
-  const order = new Order({ receive, buyerId, sellerId, evaluate, commodity });
+  const order = new Order({
+    receive,
+    buyerId,
+    sellerId,
+    evaluate,
+    commodity,
+    createTime: new Date().toLocaleString(),
+  });
   const data = await order.save();
   return data;
 }

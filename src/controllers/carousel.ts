@@ -4,7 +4,10 @@ import Carousel from '@/models/carousel';
  * 添加轮播图
  */
 export async function insertCarousel(data: UploadData) {
-  const carousel = new Carousel(data);
+  const carousel = new Carousel({
+    ...data,
+    createTime: new Date().toLocaleString(),
+  });
   const body = await carousel.save();
   return body;
 }

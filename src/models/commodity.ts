@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const CommoditySchema = new Schema({
   createTime: {
     type: String,
-    default: new Date().toLocaleString(), //不传入创建时间的默认方法
+    required: true,
   },
   kind: {
     type: Schema.Types.ObjectId,

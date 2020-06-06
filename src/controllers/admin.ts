@@ -19,7 +19,13 @@ export async function insertAdminAccount(body: RegisterAdminBody) {
   const hash = SHA256(body.userName).toString();
   const headImg = `data:image/png;base64,${new Idention(hash, 64).toString()}`;
   const password = MD5(body.password + MY_TOKEN).toString();
-  const admin = new Admin({ ...body, token, headImg, password });
+  const admin = new Admin({
+    ...body,
+    token,
+    headImg,
+    password,
+    createTime: new Date().toLocaleString(),
+  });
   const data = await admin.save();
   return { _id: data._id, headImg, token, userName: body.userName };
 }

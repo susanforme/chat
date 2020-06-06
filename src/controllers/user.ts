@@ -10,7 +10,11 @@ export async function addUser(data: UserMsg) {
   const { userName } = data;
   const hash = SHA512(userName).toString();
   const headImg = `data:image/png;base64,${new Idention(hash, 64).toString()}`;
-  const user = new User({ ...data, headImg });
+  const user = new User({
+    ...data,
+    headImg,
+    createTime: new Date().toLocaleString(),
+  });
   const userData = await User.findOne({ userName });
   if (userData) {
     throw new Error('用户名已经存在');
