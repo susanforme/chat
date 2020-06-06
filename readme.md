@@ -1,12 +1,4 @@
-# sweet server
 
-## 技术栈
-
-+ TypeScript
-+ Express
-+ Eslint
-+ Mongoose
-+ Socket.io
 
 ## start
 
@@ -23,6 +15,5 @@ yarn build
 npm run build
 
 ```
-
 
 
