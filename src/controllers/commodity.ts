@@ -5,7 +5,11 @@ import mongoose from 'mongoose';
  *  保存商品数据
  */
 export async function insertCommodity(uploadData: uploadMsg) {
-  const commodity = new Commodity({ ...uploadData, comment: [] });
+  const commodity = new Commodity({
+    ...uploadData,
+    comment: [],
+    createTime: new Date().toLocaleString(),
+  });
   const product = await commodity.save();
   return product;
 }

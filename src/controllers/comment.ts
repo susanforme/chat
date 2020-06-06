@@ -5,7 +5,10 @@ import Comment from '@/models/comment';
  * @param uploadData
  */
 export async function insertComment(uploadData: UploadData) {
-  const comment = new Comment(uploadData);
+  const comment = new Comment({
+    ...uploadData,
+    createTime: new Date().toLocaleString(),
+  });
   const product = await comment.save();
   return product;
 }

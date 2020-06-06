@@ -11,7 +11,14 @@ export async function insertOrder(uploadData: UploadMsg) {
     sellerId,
     evaluate,
   } = uploadData;
-  const order = new Order({ receive, buyerId, sellerId, evaluate, commodity });
+  const order = new Order({
+    receive,
+    buyerId,
+    sellerId,
+    evaluate,
+    commodity,
+    createTime: new Date().toLocaleString(),
+  });
   const data = await order.save();
   return data;
 }
@@ -74,6 +81,7 @@ export async function queryOrderByBuyerId(id: string) {
     .populate('commodity', {
       imgPath: 1,
       price: 1,
+      description: 1,
     });
   return data;
 }
@@ -96,6 +104,7 @@ export async function queryOrderBySellId(id: string) {
     .populate('commodity', {
       imgPath: 1,
       price: 1,
+      description: 1,
     });
   return data;
 }

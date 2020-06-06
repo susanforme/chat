@@ -8,7 +8,8 @@ function chat(io: socket.Server) {
   io.on('connection', (socket) => {
     //session不存在断开连接
     if (!socket.handshake.session?.userName) {
-      socket.disconnect(true);
+      // socket.disconnect(true);
+      console.log(socket.handshake.session?.userName);
     }
     socket.on('chat', (data: uploadMsg) => {
       const userIds = [data.send, data.receive];
@@ -25,12 +26,22 @@ function chat(io: socket.Server) {
         userIds,
       };
       updateRoom(body)
-        .then(() => console.log(`roomId 为${roomId}的聊天记录已经保存`))
-        .catch(() => console.log(`roomId 为${roomId}的聊天记录保存失败`));
+        .then(() =>
+          console.log(
+            `roomId 为${roomId}的聊天记录已经保存${new Date().toLocaleString()}`
+          )
+        )
+        .catch(() =>
+          console.log(
+            `roomId 为${roomId}的聊天记录保存失败${new Date().toLocaleString()}`
+          )
+        );
     });
     socket.on('disconnect', () => {
       console.log(
-        `username 为${socket.handshake.session?.userName} 的客户端已经断开`
+        `username 为${
+          socket.handshake.session?.userName
+        } 的客户端已经断开${new Date().toLocaleString()}`
       );
     });
   });

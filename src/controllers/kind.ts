@@ -12,7 +12,11 @@ export async function queryAllKind() {
  * 添加分类
  */
 export async function insertKind(kindName: string, imgPath: string) {
-  const kind = new Kind({ kindName, imgPath });
+  const kind = new Kind({
+    kindName,
+    imgPath,
+    createTime: new Date().toLocaleString(),
+  });
   const isHavaSameName = await Kind.findOne({ kindName });
   if (isHavaSameName) {
     throw new Error('已经存在相同分类名');

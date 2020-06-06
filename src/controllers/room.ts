@@ -8,12 +8,20 @@ import mongoose from 'mongoose';
  */
 export async function updateRoom(uploadData: uploadMsg) {
   const { roomId, send, receive, msg } = uploadData;
-  const record = new Record({ roomId, send, receive, msg });
+  const record = new Record({
+    roomId,
+    send,
+    receive,
+    msg,
+    createTime: new Date().toLocaleString(),
+  });
   const product = await record.save();
   await Room.findOneAndUpdate(
     { roomId },
-    { $push: { record: product.id }, users: [send, receive] },
-    { setDefaultsOnInsert: true, upsert: true }
+    {
+      $push: { record: product.id },
+      users: [send, receive],
+    }
   );
   return;
 }

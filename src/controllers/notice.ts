@@ -13,7 +13,10 @@ export async function queryNotice() {
  * @param body
  */
 export async function insertNotice(body: InsertBody) {
-  const notice = new Notice(body);
+  const notice = new Notice({
+    ...body,
+    createTime: new Date().toLocaleString(),
+  });
   const data = await notice.save();
   return data;
 }
