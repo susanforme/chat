@@ -38,4 +38,8 @@ mongoose
     server.listen(port, () =>
       console.log(`server is running at https://127.0.0.1:${port}`)
     );
+    server.on('secureConnection', (socket) => {
+      socket.setTimeout(30 * 1000);
+    });
+    server.headersTimeout = 35 * 1000;
   });
