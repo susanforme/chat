@@ -41,4 +41,5 @@ mongoose
     server.on('secureConnection', (socket) => {
       socket.setTimeout(30 * 1000);
     });
+    server.headersTimeout = 35 * 1000;
   });
