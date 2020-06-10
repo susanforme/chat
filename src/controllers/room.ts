@@ -21,7 +21,8 @@ export async function updateRoom(uploadData: uploadMsg) {
     {
       $push: { record: product.id },
       users: [send, receive],
-    }
+    },
+    { setDefaultsOnInsert: true, upsert: true }
   );
   return;
 }
